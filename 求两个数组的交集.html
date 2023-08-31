@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		//给定 nums1 = [1, 2, 2, 1]，nums2 = [2, 2]，返回 [2, 2]。
+		let nums1 = [1, 2, 2, 1];
+		let nums2 =  [2, 2];
+		let newArr = nums1.filter((item) => nums2.includes(item));
+		console.log(newArr);
+		//用filter方法求交集有问题，那么输出的将是[2,2]，本应该是[2]
+
+		//求解原问题的思路
+
+		//1. 空间换时间（假设数组1的规模是n，数组2的规模是m）
+		//用一个Hash表来存数组1的元素及出现的个数（此处需要遍历n次，并且需要存一个n级别的空间），然后遍历数组2，如果发现数组2里有hash表里的值，就存到result数组中，并把是hash表里该值得次数减一（为0之后就删除）；如果不存在就跳过，这样的时间复杂度就是m+n
+
+		//2 不用额外空间，就在遍历数组1的时候，判断值在不在数组2里，如果在，就把数组2里的这个值push到result数组里，并将该值从数组2里删除（用splice）。这个算法不需要额外空间，但是提高了时间复杂度
+
+		let map1 = new Map();
+		for (let item of nums1) {
+			if (map1.get(item) === undefined) {
+				map1.set(item,1)
+			} else {
+				let value = map1.get(item)+1
+				map1.set(item,value)
+			}
+		}
+		let result = [];
+	
+		for (let item of nums2) {
+			let value = map1.get(item)
+			if (value) {
+				result.push(item);
+				value-- > 0 ? map1.set(item,value) : map1.set(item,undefined)
+			}
+		}
+
+		console.log(result)
+	</script>
+</body>
+</html>

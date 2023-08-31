@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    const treeData = [
+      {
+        name: 'build.js'
+      },
+      {
+        name: 'config',
+        children: [
+          {
+            name: 'env.js'
+          },
+          {
+            name: 'eslintrc.js'
+          },
+          {
+            name: 'helper.js'
+          },
+          {
+            name: 'jest',
+            children: [
+              {
+                name: 'cssTransform.js'
+              },
+              {
+                name: 'fileTransform.js'
+              },
+            ]
+          },
+          {
+            name: 'webpack.config.js'
+          },
+          {
+            name: 'test.js'
+          },
+        ]
+      },
+      {
+        name: 'count.js'
+      },
+      {
+        name: 'i18n.js'
+      },
+      {
+        name: 'package.json'
+      }
+    ]
+
+    // 生成文件间隔符
+    function markT(index) {
+      let str = '|'
+      for (let i=0; i<index; i++) {
+        // 超过两层，只有最后一层需要 |---,其他层用空格代替
+          if (index >= 2 && i === index-1) {
+             str += '|---'
+          } else if(index === 1) { // 只有一层
+              str += '---'
+          } else {
+            str += '    '
+          }
+      }
+
+      return str
+    }
+
+    let index = 1 // 层级标识
+    function printTree(treeData) {
+      for (let i=0; i<treeData.length; i++) {
+        console.log(markT(index),treeData[i].name)
+
+        if (!treeData[i].children) {
+          continue
+        }
+        const data = treeData[i].children
+        index++ // 进入下一级
+        printTree(data)
+        index-- // 返回上一级
+      }
+    }
+    printTree(treeData)
+  </script>
+</body>
+</html>

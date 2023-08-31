@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //has方法用来拦截HasProperty操作，即判断对象是否具有某个属性时，这个方法会生效。典型的操作就是in运算符。
+    // has方法对for...in循环无效
+    let handler = {
+      has (target, key) {
+        if (key[0] === '_') {
+          return false;
+        }
+
+        return key in target;
+      }
+    };
+
+    let target = {_prop: 'foo', prop: 'foo'};
+    let proxy = new Proxy(target, handler);
+    console.log('_prop' in proxy);
+  </script>
+</body>
+</html>

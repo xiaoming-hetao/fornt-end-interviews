@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 网上有一道美团外卖的面试题是这样的： 
+    Function.prototype.a = 'a';
+    Object.prototype.b = 'b';
+    function Person(){};
+    var p = new Person();
+    console.log('p.a: '+ p.a); // p.a: undefined
+    console.log('p.b: '+ p.b); // p.b: b  问为什么？
+    console.log(Person.a);
+
+    // 有不少同学第一眼看上去就觉得很疑惑p不是应该继承了Function原型里面的属性吗，为什么p.a返回值是undefined呢？
+    // 其实，只要仔细想一想就很容易明白了,Person函数才是Function对象的一个实例，返回来的是一个对象，它是Object的一个实例,是没有继承Function的，所以无法访问
+    // Function原型里面的属性。但是,由于在js里面所有对象都是Object的实例，所以，Person函数可以访问到Object原型里面的
+    // 属性，Person.b => 'b' 
+  </script>
+</body>
+</html>

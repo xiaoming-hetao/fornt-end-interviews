@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // T extends U ? X : Y : 如果T中的类型在 U 中存在，则返回 X
+
+    // ts内置泛型接口 Extract
+    type Extract<T,U> = T extends U ? T : never
+    // 可用于提取公共属性
+
+    interface Worker {
+      name: string
+      age: number
+      email: string
+      salary: number
+    }
+
+    interface Student {
+      name: string
+      age: number
+      email: string
+      grade: number
+    }
+
+    type CommonKeys = Extract<keyof Worker,keyof Student>
+    // 'name' | 'age' | 'string'
+  </script>
+</body>
+</html>

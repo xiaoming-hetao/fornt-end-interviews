@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+   
+    let shallowClone = function(obj) {
+      // 只拷贝对象
+      if (typeof obj !== 'object' || obj === null) return obj;
+
+      let newObj = obj instanceof Array ? [] : {};
+
+      // 遍历obj,并且判断是obj的属性才拷贝
+
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = obj[key];
+        }
+      }
+
+      return newObj;
+    }
+    let obj = {
+      name: '小明',
+      age: 24,
+      hobby: {
+        ball: '篮球',
+        art: '摄影'
+      }
+    }
+   
+    let newObj = shallowClone(obj)
+    
+    newObj.hobby.art = '网球'
+    
+    console.log(obj)
+  </script>
+</body>
+</html>

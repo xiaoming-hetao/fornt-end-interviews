@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //使用map数据结构，数组元素作为键，出现次数作为值
+
+    let arr = [1,2,3,4,8,2,2,5,3,1,2,4,5,2];
+    
+    
+    function findShowMax(arr) {
+      let len = arr.length;
+      let map = new Map(); //定义map数据结构
+
+      let maxTimes = 0,
+          max = 0;
+
+      for (let i = 0;i < len; i++) {
+        if (map.get(arr[i]) === undefined) {//第一次出现
+          map.set(arr[i],1)
+        } else { //不是第一次出现,次数加1
+          let value = map.get(arr[i]) + 1; 
+          map.set(arr[i], value);
+
+          if (value > maxTimes) {
+            maxTimes = value;
+            max = arr[i]
+          } 
+        }
+      }
+      let test = [...map.entries()]
+      test.sort((a,b) => a[1] - b[1])
+      console.log(test,test[0][0])
+      console.log(max,maxTimes)
+    }
+
+    findShowMax(arr)
+  </script>
+</body>
+</html>

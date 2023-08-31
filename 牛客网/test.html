@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    /*父元素为div的p元素*/
+    div>p { 
+      color: red;
+    }
+    /*div下的所有瓶元素*/
+    div p {
+
+    }
+    /*id选择器只能有一个，类选择器可以有多个*/
+  </style>
+  <!-- link标签是同时加载的 script标签才会加载完一个再加载另一个 -->
+</head>
+<body>
+  <div>
+    <p>123</p>
+    <span><p>456</p></span>
+  </div>
+  <button onclick="handleClick()">点我</button>
+  <table border="10"> 
+<tr> 
+　　<td colspan=2 align="center">员工号</td>
+</tr> 
+<tr> 
+<td rowspan=2 align="center">学历</td>
+<td align="center">专业</td>
+</tr>
+<tr>
+<td colspan=2 align="center">毕业学校</td>
+</tr> 
+</table>
+  <script type="text/javascript">
+    //a是形参，属于局部变量，不影响全局变量a的值，因此输出的a是全局变量的值10
+    // 如果没有形参，则会修改全局的a
+    function test(a){
+      a=a+10;
+    }
+    var a=10;
+    test(a);
+    console.log(a);
+
+    function handleClick() {
+      window.open('http://www.baidu.com','window2')
+    }
+    console.log(new Array(10).forEach(()=>{
+      i++
+    }))
+    let i = 1+{
+      valueOf() {
+        return 9;
+      }
+    }
+    console.log(i)
+
+    // ({} + 'b' > {} + 'a')返回值是（）//true
+    // 1.“+”连接字符会转换为字符
+    // 2.“+”优先级高于“>”
+    // 3.“>”运算符比较字符串大小时，会把字符串转换为ASCII码依次比较，这里很明显b大于a
+
+    var foo='foo';
+
+    var bar='bar';
+
+    function myFunc() {
+
+    console.log(foo+bar);
+    }
+    myFunc()
+
+    var foo = {n: 1};
+    var bar = foo;
+    foo.x = foo = {n: 2};
+    console.log(foo.x) //undefined
+
+    // toFixed() 方法可把 Number 四舍五入为指定小数位数的数字,返回 NumberObject 的字符串表示
+    console.log(Number('1.9999').toFixed(2))
+  </script>
+</body>
+</html>

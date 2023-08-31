@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function throttle(fn, delay) {
+      //由于节流是指定时间后必运行一次，所以我们需要一个标记来判断是否到了可以运行的时候，第一次触发必然是可以运行的，所以初始化为true
+      let canRun = true;
+
+      return function(...args) {
+       
+        if (!canRun) return;
+        //第一次触发事件后，立即设置为false
+        canRun = false;
+
+        //设置定时器
+        setTimeout(()=> {
+          fn.apply(this, args);
+          //当到了指定时间函数运行一次后，是否可以运行标志又变为true，表示可以进行下一次循环
+          canRun = true;
+        },delay)
+      }
+    }
+   function resizeWindow(e) {
+    console.log(e.target.innerWidth, e.target.innerHeight);
+  }
+
+  function throttle1(fn,delay) {
+    let timer = null
+    return function(...args) {
+      if (!timer) {
+        timer = setTimeout(() => {
+          fn.apply(this,args)
+          timer = null
+        },delay)
+      }
+    }
+  }
+
+  window.addEventListener('resize', throttle1(resizeWindow, 1000))
+  </script>
+</body>
+</html>

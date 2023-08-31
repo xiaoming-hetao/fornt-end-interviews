@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let person = {
+      name: 'pdd',
+      action: function(func) {
+        func();
+        console.log(arguments)
+        arguments.name = 'pingduoduo';
+        arguments[0]();
+      }
+    }
+    let name = '拼多多';
+    function show() {
+      console.log(this);
+      console.log(this.name);
+    }
+    person.action(show);
+  </script>
+</body>
+</html>

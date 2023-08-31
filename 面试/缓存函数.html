@@ -1,0 +1,46 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    
+   //首先实现add函数的累加效果
+    function add() {
+      let args = Array.from(arguments);//arguments伪数组变为真正的数组
+      return args.reduce((res, cur) => res+cur)
+    }
+
+    //接下来实现cacheFn，它以add作为参数
+    function cacheFn(fn) {
+      let cache = {};//用来缓存参数
+      return function(...args) {
+        //把参数数组序列化为字符串作为cache对象的键
+        const _args = JSON.stringify(args);
+        
+        //如果当前参数已经缓存过，则自己从缓存中取值返回即可
+        if (cache[_args]) {
+          return cache[_args];
+        } else {//否则，计算当前参数的和并缓存起来
+          cache[_args] = fn.apply(this,args);
+          return cache[_args];
+        }
+      }
+    }
+    let newFn = cacheFn(add);
+    console.time('参数1,2第一次的运行时间');
+    console.log(newFn(1,2))
+    console.timeEnd('参数1,2第一次的运行时间');
+
+    console.time('参数2,3,4第一次的运行时间');
+    console.log(newFn(2,3,4))
+    console.timeEnd('参数2,3,4第一次的运行时间');
+
+    console.time('参数1,2第二次的运行时间');
+    console.log(newFn(1,2))
+    console.timeEnd('参数1,2第二次的运行时间');
+     
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //思路：1. 判断当前值类型，如果当前值类型是null或者非object，直接return
+    // 2.如果是object类型且不是null，则递归地调用拷贝函数
+    let c = []
+   
+    function deepClone(obj,map = new Map()) {
+      if (typeof obj !== 'object' || obj === null) return obj;
+     // 当对象存在循环引用时，深拷贝的时候会导致栈溢出,所以使用map存储下来，遇到循环引用对象则直接返回
+      if (map.has(obj)) return map.get(obj)
+
+      let resObj = Object.prototype.toString.call(obj) === '[object Array]' ? [] : {};
+      
+      map.set(obj,resObj)
+
+       // 循环对对象的属性进行操作（for...in 语句用于遍历数组或者对象的属性）
+      for (let prop in obj) {
+        // 如果对象的属性值为·obj时，递归调用clone
+       if (typeof obj[prop] === 'object' && obj[prop] !== null && obj.hasOwnProperty(prop)) {//并且判断是obj的属性才拷贝
+         resObj[prop] = deepClone(obj[prop],map);
+       } else {//否则直接复制键值到新对象
+          resObj[prop] = obj[prop]
+       }
+      }
+      return resObj
+    }
+    // let a = {name:{demo:'1'}};
+    // a.test = a // 当对象存在循环引用时，深拷贝的时候会导致栈溢出
+    // let b = deepClone(a);
+    // console.log(a.name.demo); // 1
+    // console.log(b.name.demo); // 1
+    // b.name.demo = '2111';
+    // console.log(a); // 输出 {name:{demo:'1'}}
+    // console.log(b); // 输出 {name:{demo:'2'}}
+
+
+    function mydeepClone(obj,map = new Map()) {
+      if (typeof obj !== 'object' || obj === null) return obj
+
+      if (map.has(obj)) return map.get(obj)
+
+      // 处理 Date 对象
+      if (obj instanceof Date) {
+         const newObj = new Date(obj.getTime())
+         return newObj
+      }
+
+      // 处理 正则表达式
+      if (obj instanceof RegExp) {
+
+          const newObj = new RegExp(obj.source, obj.flags)
+          return newObj
+      }
+
+      let newObj = Object.prototype.toString.call(obj) === '[object Array]' ? [] : {}
+
+      map.set(obj,newObj)
+
+      for (let prop in obj) {
+        if (typeof obj[prop] === 'object' && obj[prop] !== null && obj.hasOwnProperty(prop)) {
+          newObj[prop] = mydeepClone(obj[prop],map)
+        } else {
+          newObj[prop] = obj[prop]
+        }
+      }
+
+      return newObj
+    }
+
+    function initNewObj(obj) {
+      const Ctor = obj.constructor
+      const objTag = {
+        objectTag: '[object Object]',
+        arrayTag: '[object Array]',
+        dateTag: '[object Date]',
+        regexpRag: '[object RegExp]',
+        stringTag: '[object String]'
+      }
+
+      let newObj
+
+      const objType = Object.prototype.toString.call(obj)
+      
+      switch(objType) {
+        case objTag.objectTag:
+          newObj = {}
+          break
+        case objTag.arrayTag:
+          newObj = []
+          break
+        case objTag.dateTag:
+          // 创建新的日期对象
+          newObj = new Date(obj.getTime())
+          break
+        case objTag.regexpRag:
+          // 创建新的正则表达式对象
+          newObj = new RegExp(obj.source,obj.flags)
+          break
+        case objTag.stringTag:
+        
+          newObj = new Ctor(obj)
+          return newObj
+        default:
+          break
+      }
+
+      return newObj || {}
+    }
+
+    function deepCloneMAX(obj,map = new Map()) {
+      if (typeof obj !== 'object' || obj === null) return obj
+
+      if (map.has(obj)) return map.get(obj)
+
+
+      let newObj = initNewObj(obj)
+
+      map.set(obj,newObj)
+
+      for (let prop in obj) {
+        if (typeof obj[prop] === 'object' && obj[prop] !== null && obj.hasOwnProperty(prop)) {
+          
+          newObj[prop] = deepCloneMAX(obj[prop],map)
+        } else {
+          newObj[prop] = obj[prop]
+        }
+      }
+
+      return newObj
+    }
+
+
+    let obj = {
+      
+      str: new String('我是字符串对象'),
+    }
+    
+    let newObj = deepCloneMAX(obj)
+    console.log(newObj)
+  </script>
+</body>
+</html>

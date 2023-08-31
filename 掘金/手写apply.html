@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function myApply(thisArg,args) {
+      let func = this
+
+      thisArg = thisArg || window
+
+      args = args || []
+
+      let fn = Symbol('fn')
+
+      thisArg[fn] = func
+
+      let result = thisArg[fn](...args)
+
+      delete thisArg[fn]
+
+      return result
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    Function.prototype.mtBind = function(context){
+      // bind返回的是一个绑定this的函数，这里需要北村this
+      const _this = this;
+      const args = [...arguments].slice(1);
+
+      // 返回一个函数
+      return function F() {
+        // 因为返回一个函数，通过new F判断能否当做构造函数
+        if (this instanceof F) {
+          return new _this(...args, ...arguments)
+        }
+
+        // 对于直接调用来说，这里选择了apply的方式，但是对于参数需要注意以下情况:因为bind可以实现类似这样的代码 f.bind(obj,1)(2),所以我们需要将两边的参数拼接起来，于是就有了这样的实现args.concat(…arguments)
+        return _this.apply(context, args.concat(...arguments))
+      }
+    }
+  </script>
+</body>
+</html>

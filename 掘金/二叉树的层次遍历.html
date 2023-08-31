@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // BFS
+    // 思路：每次遍历一层的时候，把它的子节点按照顺序依次保存为temp
+    // 把子节点的结果作为新的结果返回
+
+    let levelOrder = function(root) {
+      if (root === null) return [];
+
+      let res = [],
+          layer = [root];
+
+      while (layer.length) {
+        let temp = [],
+            ans = [];
+        for (let i=0; i<layer.length; i++) {
+          ans.push(layer[i].val);
+          if (layer[i].left) temp.push(layer[i].left);
+          if (layer[i].right) temp.push(layer[i].right);
+        }
+
+        res.push(ans);
+        layer = temp;
+      }
+
+      return res;
+    }
+  </script>
+</body>
+</html>

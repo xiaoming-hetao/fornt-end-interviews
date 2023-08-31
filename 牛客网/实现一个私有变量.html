@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //如何实现一个私有变量，用getName方法可以访问，不能直接访问
+
+    // (1)通过defineProperty来实现
+    let obj1 = {
+      name: 'xiaoming',
+      getName: function() {
+        return this.name;
+      }
+    };
+    // 属性的枚举性会影响以下三个函数的结果：
+
+    // for…in
+
+    // Object.keys()
+
+    // JSON.stringify
+
+    Object.defineProperty(obj1,'name',{
+      configurable:false,//能否使用delete、能否需改属性特性、或能否修改访问器属性、，false为不可重新定义，默认值为true
+    enumerable:false,
+    });
+    console.log(obj1.name);
+    console.log(obj1.getName());
+
+    // (2)通过函数的创建形式
+    function slefVarible() {
+      let name = 'xiaoming';
+      this.getName = function() {
+        return name;
+      }
+    }
+    let obj2 = new slefVarible();
+     console.log(obj2.name);
+    console.log(obj2.getName());
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+    // 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+
+    //给定 nums = [2, 7, 11, 15], target = 9
+    // 因为 nums[0] + nums[1] = 2 + 7 = 9
+    // 所以返回 [0, 1]
+    let nums = [2, 7, 11, 15],
+        target = 9;
+    let twoSum1 = function(nums, target) {
+      let res = [];
+      nums.map((item, index) => {
+        // 获取另一个元素的索引
+        let targetIndex = nums.indexOf(target-item); 
+        // targetIndex !== index(数组中同一个元素不能使用两遍)
+        if (targetIndex !== -1 && targetIndex !== index) {
+            res.push(index);
+            res.push(targetIndex);
+        }
+      });
+      return [...new Set(res)];
+
+    }
+    twoSum1(nums,target);
+
+    let twoSum2 = function(nums, target) {
+      let res = [];
+      for (let i=0; i<nums.length; i++) {
+        let j = nums.indexOf((target-nums[i]));
+        if (j !==-1 && j !== i) {
+          res.push(i);
+          res.push(j);
+        }
+      }
+      return [...new Set(res)];
+    }
+    twoSum2(nums,target);
+
+    let twoSum3 = function(nums, target) {
+      let obj = {};
+      let res = [];
+      nums.map((item, index) => {
+        obj[item] = index;
+      });
+      nums.forEach((item, index) => {
+        let j = obj[(target-item)];
+        if (j !== undefined && j !== index) {
+            res = [index, j]
+        }
+      })
+      return res;
+    }
+    twoSum3(nums,target);
+  </script>
+</body>
+</html>

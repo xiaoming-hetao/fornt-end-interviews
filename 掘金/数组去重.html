@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let arr = [1,2,2,3,5,6,3,5,5];
+    // 数组去重并按照出现次数排序
+
+    function uniqueAndSort(arr) {
+      let map = new Map()
+      let temp = [] // 存放只出现一次的元素
+      for (let i=0; i<arr.length; i++) {
+        if (temp.includes(arr[i])) {
+          if (!map.get(arr[i])) {
+            map.set(arr[i],2)
+          } else {
+            const value = map.get(arr[i])
+            map.set(arr[i],value+1)
+          }
+        } else {
+          temp.push(arr[i])
+        }
+        
+      }
+
+      let mapArr = [] // 重复出现的元素以及出现的次数
+      for (let item of map.entries()) {
+        mapArr.push(item)
+      }
+
+      // 按出现次数从大到小排序(此时map arr 为二维数组,每个元素第一值为原数组中元素，第二个值为其出现的次数)
+      const repeatedNumArr = mapArr.sort((a,b) => b[1] - a[1]).map((item) => item[0])
+
+      return [...new Set([...repeatedNumArr,...temp])]
+    }
+    console.log(uniqueAndSort(arr),'uniqueAndSort(arr)')
+
+    //filter 方法
+    function unique1(arr) {
+      let res = arr.filter((item, index, arr) => {
+        return arr.indexOf(item) === index;
+      });
+
+      return res;
+    }
+
+    // reduce方法
+    function unique2(arr) {
+      let res = arr.reduce((pre, cur) => {
+        return pre.includes(cur) ? pre : [...pre,cur]
+      },[]);
+
+      return res;
+    }
+
+    function unique3(arr) {
+      let obj = {};
+      for (let i=0; i<arr.length; i++) {
+        if (obj[arr[i]] === undefined) {
+          obj[arr[i]] = true
+        }
+      }
+      // 原生对象只能把字符串当做键
+      console.log(Object.keys(obj))// ["1", "2", "3", "5", "6"]
+    }
+
+    function unique4(arr) {
+      let map = new Map();
+      for (let i=0; i<arr.length; i++) {
+        if (map.get(arr[i]) === undefined) {
+         map.set(arr[i], true)
+        }
+      }
+      console.log([...map.keys()])
+    }
+
+    unique3(arr);
+    unique4(arr)
+    let res1 = unique1(arr);
+    let res2 = unique2(arr);
+    console.log(res1);
+    console.log(res2);
+  </script>
+</body>
+</html>

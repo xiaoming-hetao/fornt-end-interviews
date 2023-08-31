@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    alert('2 3'.split(' '));
+    alert(Math.min(...[1,2,3]))
+    function checkColor(color){
+        let arr = [];
+        arr.push(color.substring(4,6))
+        arr.push(color.substring(7,9))
+        arr.push(color.substring(10,12))
+
+        let len = arr.length;
+        let arr1 = arr.map((item, index) => {
+          return item >=0 && item <=256;
+        })
+        if (len === arr1.length) {
+          console.log('valid');
+        } else {
+          console.log('invalid');
+        }
+    }
+
+    checkColor('rgb(10,20,30)')
+  </script>
+</body>
+</html>

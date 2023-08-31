@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //(macro)task 主要包含：setTimeout、setInterval、setImmediate(Node.js 环境
+    //microtask主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)
+
+   //微任务优先于宏任务执行 
+    console.log('script start');
+
+    setTimeout(function() {
+      console.log('setTimeout');
+    }, 0);
+
+    Promise.resolve().then(function() {
+      console.log('promise1');
+    }).then(function() {
+      console.log('promise2');
+    });
+
+    console.log('script end');
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style type="text/css">
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: #fff;
+        margin-bottom: 20px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-family: sans-serif;
+        cursor: pointer;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        box-sizing: border-box;
+        width: 200px;
+        height: 50px;
+        white-space: nowrap;
+        
+    }
+    .button .long-text {
+      white-space: nowrap;
+      
+      display: inline-block;
+      transform: scale(0.6);
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="button">
+      <span id="text">这是一个国际化翻译文案</span>
+    </button>
+    <!-- <button class="button">
+      <span id="text1">这是一个国际化翻译文案</span>
+    </button> -->
+   <!--  <button class="button">
+      <span class="long-text" id="text2">This is an international translation copy</span>
+    </button> -->
+    
+    <button onclick="handleTranslationChange()">切换成英文</button>
+    <canvas id="canvas" width="200" height="100" style="border:1px solid #000000;display: none;"></canvas>
+  </div>
+  <script type="text/javascript">
+    let buttonWidth = 200
+
+    let handleTranslationChange = () => {
+      const text = document.getElementById('text')
+      text.innerText = 'This is an international translation copy'
+
+      
+    }
+
+    const text = document.getElementById('text')
+
+    const observer = new MutationObserver(entries => {
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')
+      // font 属性值默认是 10px sans-serif
+      context.font = "16px sans-serif"
+
+
+      const measureText = context.measureText(text.innerText)
+      console.log(text.clientWidth,measureText.width)
+
+      // 如果翻译之后文案宽度大于按钮
+      if (measureText.width > buttonWidth) {
+        text.style.transform = 'scale(0.6)'
+      }
+    })
+    observer.observe(text,{ childList: true, subtree: true })
+
+    const canvas = document.getElementById('canvas')
+
+    const context = canvas.getContext('2d')
+    context.font = "16px sans-serif"
+    // context.translate(canvas.width/2,canvas.height/2) // 移动原点到画布中央
+    // context.scale(-1, -1) // 反转坐标轴
+    // 同等长度的 iii 和 GGG 在页面上显示的宽度是不一样的
+    context.fillText('iii',0,0)
+    context.fillText('GGG',0,20)
+
+    const iText = context.measureText('iii')
+    const GText = context.measureText('GGG')
+    console.log(iText.width,GText.width)
+
+    // const translateText1 = document.getElementById('text1')
+    // const translateText2 = document.getElementById('text2')
+
+    // const measureText1 = context.measureText(translateText1.innerText)
+    // const measureText2 = context.measureText(translateText2.innerText)
+
+    // translateText1.clientWidth 计算文本宽度
+
+    // console.log(measureText1.width,measureText2.width,translateText1.clientWidth,translateText2.clientWidth)
+  </script>
+</body>
+</html>

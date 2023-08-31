@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let arr = [1,2,3];
+    alert(Array.isArray(arr));
+    alert(arr instanceof Array);
+
+    function checkArray(left, right) {
+      if (typeof left !== 'object' || left === null) return false
+      let proto = left.__proto__;
+
+      while(proto) {
+        if (proto === right.prototype) {
+          alert(true);
+          return true;
+        }
+
+        proto = proto.__proto__;
+      }
+
+      return false;
+    }
+
+    checkArray(arr,Array)
+
+    // 上述方法是不严谨的，数组也是Object
+  </script>
+</body>
+</html>

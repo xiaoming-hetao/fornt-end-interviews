@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <a href="javascript: alert('1')">1111</a>
+  <script type="text/javascript">
+    //假设val已经声明,可定义为任何值。则下面js代码有可能输出的结果为:
+    // console.log('Value is ' + (val != '0') ? 'define' : 'undefine');//define
+
+    //解析：运算符优先级：（）> + > ?:
+    // 因此无论(val != '0')是真是假，最后进行加运算时，都会变成字符串
+  alert({} + 'b' > {} + 'a')
+  </script>
+</body>
+</html>

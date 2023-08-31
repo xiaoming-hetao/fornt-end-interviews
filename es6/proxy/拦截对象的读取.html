@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //get方法用于拦截某个属性的读取操作，可以接受三个参数，依次为目标对象、属性名和 proxy 实例本身（严格地说，是操作行为所针对的对象），其中最后一个参数可选。
+    let person = {
+      name: 'xioaming'
+    };
+    let proxy = new Proxy(person, {
+      get: function(target, propKey) {
+        if (propKey in target) {
+          return target[propKey]
+        } else {
+          throw new ReferenceError("Prop name \"" + propKey +"\" does not exist.")
+        }
+      }
+    });
+    proxy.name 
+    proxy.age //抛出错误
+    // 面代码表示，如果访问目标对象不存在的属性，会抛出一个错误。如果没有这个拦截函数，访问不存在的属性，只会返回undefined。
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+      var m= 1, j = k = 0; 
+      function add(n) { 
+          return n = n+1; 
+  　  } 
+      y = add(m); 
+      function add(n) { 
+          return n = n + 3; 
+      } 
+      z = add(m); 
+      console.log(y,z);//4,4
+      // 解析：在js中，定义了两个同名函数后，后面的函数会覆盖前面定义的函数
+      // 由于函数声明提升，所以函数声明会提前，由于存在同名函数，后面的add函数将覆盖第一个add函数，所以两次调用add()返回的值是相同的。也就是y,z都为4.
+  </script>
+</body>
+</html>

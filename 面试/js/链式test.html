@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 链式操作
+    // 原理：每次方法执行后返回this对象，这样后面的方法就可以继续在this环境下执行,也就是在当前执行环境下执行
+
+    // 下面是一个简单的例子,定义一个构造函数
+    function Test(name) {
+      this.name = name;
+      console.log(this.name);
+    }
+    // 在Test的原型上定义一些方法
+    Test.prototype = {
+      eat(food) {
+        console.log(food);
+        return this;//关键代码,如果没有return this，那么在eat方法后面再一次调用eat方法会报错,同理调用下面的sleep函数会报错
+      },
+      sleep(time) {
+        console.log(time);
+        return this
+      }
+    }
+    // new Test('hank').eat('lunch').eat('dinner').sleep(5).eat('宵夜');//先后打印hank，lunch，dinner,5
+
+
+
+    function CodingMan(name) {
+
+      this.name = name;
+      this.queue = [];//任务队列（使用队列的先进先出性质来模拟链式调用函数的执行顺序）
+      console.log('Hi! this is' + ' ' + this.name + '!');
+      setTimeout(() => {
+        this.next();//next方法是CoddngMan原型上的方法，用于从任务队列中取出函数执行
+      },0);
+      console.log('123')
+
+      // return this;
+    }
+
+    CodingMan.prototype = {
+      eat(food) {
+        
+        let fn = () => {
+          console.log('Eat' + ' ' +food + '~')
+          this.next();
+        };
+        this.queue.push(fn);
+        return this;
+      },
+      work(job) {
+        let fn = () => {
+          console.log(job)
+          this.next()
+        }
+        this.queue.push(fn);
+        return this;
+      },
+      sleep(time) {
+        let fn = () => {
+          setTimeout(() => {
+            console.log('wake up after' + '' + time);
+            this.next();
+          },time*1000)
+        }
+        this.queue.push(fn);
+        return this;
+      },
+      sleepFirst(time) {
+        let fn = () => {
+          setTimeout(() => {
+            console.log('wake up after' + '' + time);
+            this.next();
+          },time*1000)
+        }
+        this.queue.unshift(fn);//放到队列首部，优先执行
+        return this;
+      },
+      next() {
+        let fn = this.queue.shift();//从队列首部取出一个函数
+        fn && fn();//如果fn存在就执行fn
+      }
+    }
+    // new CodingMan('Hank');
+    // new CodingMan('Hank').sleep(10).eat('dinner');
+    // new CodingMan('Hank').eat('dinner').eat('supper');
+  
+    new CodingMan('Hank').eat('breakfast').work('Coding').sleep(1).eat('lunch').work('Coding').eat('dinner').sleepFirst(5)
+  </script>
+</body>
+</html>

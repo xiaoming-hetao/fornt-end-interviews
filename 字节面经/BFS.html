@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+   <div class="parrent">
+    <div class="child-1">
+      <div class="child-1-1">
+        <div class="child-1-1-1">
+          a
+        </div>
+      </div>
+      <div class="child-1-2">
+        <div class="child-1-2-1">
+          b
+        </div>
+      </div>
+      <div class="child-1-3">
+        c
+      </div>
+    </div>
+
+    <div class="child-2">
+      <div class="child-2-1">
+        d
+      </div>
+      <div class="child-2-2">
+        e
+      </div>
+    </div>
+
+    <div class="child-3">
+      <div class="child-3-1">
+        f
+      </div>
+    </div>
+
+  </div>
+
+  
+</body>
+<script type="text/javascript">
+    let body = document.body;
+    let node = body.childNodes[1];
+    console.log(body)
+    console.log(body.childNodes)
+
+    // 先被访问的顶点的邻接节点先于后被访问的顶点的邻接节点被访问
+    // 使用队列来做（先进先出)
+
+    function widthTree(node) {
+      let nodeList = [];
+      let queue = [];
+
+      if (node) { //节点不为空
+        // 推入节点
+        queue.push(node);
+
+        while(queue.length) {
+          let item = queue.shift();
+          nodeList.push(item);
+
+          // 遍历子节点
+          let children = item.children;
+          for (let i=0; i<children.length; i++) {
+            queue.push(children[i]);
+          }
+        }
+      }
+
+      return nodeList;
+    }
+
+    let res = widthTree(node);
+    console.log(res);
+  </script>
+</html>

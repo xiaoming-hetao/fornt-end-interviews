@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let versions = ["1.45.0", "1.5", "6", "3.3.3.3.3.3.3"];
+    function versionsSort(versions) {
+        
+       let res = versions.sort((a,b) => {
+          let va = a.split('.'),
+              vb = b.split('.'),
+              len = Math.max(va.length,vb.length);
+
+          for (let i=0; i<len; i++) {
+            let x = va[i] === undefined ? 0 : parseInt(va[i]),
+                y = vb[i] === undefined ? 0 : parseInt(vb[i]);
+
+            if (x < y) 
+              return -1
+            else
+              return 1
+          }
+        });
+        console.log(res);
+        return res;
+    }
+  
+  versionsSort(versions)
+
+ 
+  </script>
+</body> 
+</html>

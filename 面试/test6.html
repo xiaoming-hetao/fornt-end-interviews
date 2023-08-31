@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 求 a 的 b 次方，时间复杂度降到 O(logn)
+    // 分治法：比如求： a^7，先求 a^3 a^3，再求 a^1
+    function test(a,b){
+      let res = 1
+      
+      while(b) {
+        if (b % 2 === 1) res = res*a
+        b = Math.floor(b/2)
+        a = a*a
+      }
+      
+      return res
+    }
+    console.log(test(2,4))
+  </script>
+</body>
+</html>

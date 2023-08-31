@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 哪个 promise 状态率先改变，则 PromiseRace 的状态就改变，并取它的返回值
+    function myPromiseRace(promise) {
+      return new Promise((resolve,reject) => {
+        promise.forEach((p) => {
+          Promise.resolve(p).then((res) => {
+            resolve(res)
+          },(err) => {
+            reject(err)
+          }
+          )
+        })
+      })
+    }
+
+     // test
+    let p1 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(1)
+        }, 1000)
+    })
+    let p2 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(2)
+        }, 2000)
+    })
+    let p3 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(3)
+            // throw new Error('test');
+        }, 3000)
+    })
+
+    myPromiseRace([p1,p2,p3]).then((res) => console.log(res))
+  </script>
+</body>
+</html>

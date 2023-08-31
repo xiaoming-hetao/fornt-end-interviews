@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div id="div">123</div>
+  <script type="text/javascript">
+    let name = 'global';
+    function getName() {
+     name = 'local';
+     return function() {
+         return name;
+     }
+    }
+    let getPrivate = getName();
+    console.log(name); //local
+    console.log(getPrivate()); //local
+
+    
+  </script>
+</body>
+</html>

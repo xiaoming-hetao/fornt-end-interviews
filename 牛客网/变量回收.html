@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //下列代码存在几个变量没有被回收？（ ）
+    var i = 1;
+    var i = 2;
+    console.log(i);
+    var add = function() {
+        var i = 0;
+        return function()
+    {
+            i++;
+            console.log(i);
+        }
+    }();
+    add();
+    // 1：全局变量i不会被回收
+
+    // 2：全局变量add不会被回收
+
+    // 3：闭包引用的局部变量i不会被回收
+  </script>
+</body>
+</html>

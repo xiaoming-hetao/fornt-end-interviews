@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script>
+		//js中通过Object.prototype.toString方法----精确判断对象的类型
+		// https://www.cnblogs.com/bq-med/p/8796836.html
+
+		/*1  Object.prototype.toString.call()方法*/
+
+		//每一个继承Object的对象都有toString方法
+		//如果toString方法没有重写的话，会返回[object, type],其中type为对象的类型
+		//但当除了 Object 类型的对象外，其他类型直接使用 toString 方法时，会直接返回都是内容的字符串,所以我们需要使用call或apply方法来改变toString方法执行的上下文
+
+		const an = ['hello', 'An'];
+		const bn = {name: 'xiaoming'}
+		console.log(an.toString());//hello,An
+		console.log(bn.toString());//[object Object]
+		const test = Object.prototype.toString.call(an);
+		console.log(test);//[object Array]
+
+		//Object.prototype.toString.call()对于所有的基本数据类型都能进行判断，即使是 null 和 undefined
+		Object.prototype.toString.call('An') // "[object String]"
+		Object.prototype.toString.call(1) // "[object Number]"
+		Object.prototype.toString.call(Symbol(1)) // "[object Symbol]"
+		Object.prototype.toString.call(null) // "[object Null]"
+		Object.prototype.toString.call(undefined) // "[object Undefined]"
+		Object.prototype.toString.call(function(){}) // "[object Function]"
+		Object.prototype.toString.call({name: 'An'}) // "[object Object]"
+
+		/*2 instanceof方法*/
+		//instanceof方法判断一个对象是否为数组，返回true或false
+		const cn = [];
+		const dn = 'jkk';
+		console.log(cn instanceof Array);
+		console.log(dn instanceof Array);
+
+		/*3 Array.isArray()方法*/
+		//用来判断对象是否为数组
+		const fn = [];
+		console.log(Array.isArray(fn));
+
+		//三种方法的优劣及区别
+
+		//当检测Array实例时，Array.isArray()方法优于instanceof方法
+		//Array.isArray()是es5新增的方法，当不存在该方法时，可以使用Object.prototype.toString.call()方法实现
+		if (!Array.isArray) {
+			Array.isArray = function(arg) {
+				return Object.prototype.toString.call(arg) === '[object,Array]';
+			};
+		}
+	</script>
+</body>
+</html>

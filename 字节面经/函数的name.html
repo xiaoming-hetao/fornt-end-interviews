@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //函数的名字是不能修改的
+    function Foo() {}
+    let oldName = Foo.name;
+    Foo.name = "bar";
+    console.log([oldName, Foo.name]);
+
+    // js中所有对象都是Object的实例，并继承Object.prototype的属性和方法
+    // 对象在创建时，就会预定义一些属性，其中定义函数时，这个预定义属性就是prototype
+    // 在定义普通的对象的时候，会生成一个__ptoto__属性，它指向这个对象的构造函数的prototype
+    // Function.prototype是所有函数的原型
+    let a = Foo.prototype;
+    let b = new Foo();
+    let c = b.prototype;
+
+    console.log(a)
+    console.log(b)
+    console.log(c)
+    console.log(a === c) ; //false
+
+    // 怎么为 true?, 把b.prototype该为b.__proto__
+  </script>
+</body>
+</html>

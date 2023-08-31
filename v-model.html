@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue的数据双向绑定原理</title>
+</head>
+<body>
+	<!-- 数据的双向绑定的核心是利用了es5的Object.defineProperty -->
+	<!-- Object.defineProperty()方法会在一个对象上定义一个新属性或者修改一个对象的现有属性，并返回这个对象 -->
+
+	<!-- 手写一个数据绑定 -->
+	<input id="input" type="text" />
+	<div id="text"></div>
+
+	<script>
+		//Object.defineProperty(obj,prop,descriptor)
+		//obj：定义属性的对象
+		//prop：要定义或者修改的属性的名称
+		//descriptor:将被定义或修改属性的描述符（包括数据描述符和存取描述符）
+		//数据描述符：value，是一个属性的值
+		//存取描述符：由 getter 函数和 setter 函数所描述的属性。一个描述符只能是这两者其中之一；不能同时是两者
+
+
+		let input = document.getElementById("input");
+		let text = document.getElementById("text");
+		let data = { value: "" };
+
+		 const proxy = new Proxy(data,{
+			get: function(target,key) {
+				return Reflect.get(target,key)
+			},
+			set: function(target,key,value) {
+				text.innerHTML = value
+				input.value = value
+				return Reflect.set(target,key,value)
+			}
+		})
+
+		// Object.defineProperty(data, "value", {
+		// 	set: function(val) {
+		// 		text.innerHTML = val;
+		// 		input.value = val;
+		// 	},
+		// 	get: function(val) {
+		// 		return val;
+		// 	}
+		// });
+		input.onkeyup = function(e) {
+			 proxy.value = e.target.value;
+		}
+		//event.target不会变化，它永远是直接指向接受事件的目标DOM元素；
+		console.log(input.value);//空
+	</script>
+
+
+</body>
+</html>

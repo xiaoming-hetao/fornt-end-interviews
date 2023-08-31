@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <input type="date" name="bday">
+  <input type="datetime-local" name="bdaytime">
+ 
+  <script type="text/javascript">
+    //delete 运算符删除对以前定义的（自己定义的）对象属性或方法的引用。不能删除原始的 ECMAScript 方法，不是开发者定义的
+
+    // void使函数没有返回值（请记住，没有返回值的函数真正返回的都是 undefined。）
+    console.log([1,2,'a','b','3'].filter(Number))
+    
+
+  var obj = {name:'yy0'};
+
+    Object.defineProperty(obj,"name",{
+
+         configurable:true,
+
+         enumerable:false,
+
+         set: function(){
+
+            name = 'yy3';
+
+         },
+
+         get: function(){
+              return 'yy1';
+
+          }
+
+     });
+
+     obj.name = 'yy2';
+
+     console.log(obj.name);
+  </script>
+</body>
+</html>

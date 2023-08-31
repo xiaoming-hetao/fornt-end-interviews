@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    class EventEmitter {
+      constructor() {
+        this.eventMap = {}
+      }
+
+      on(eventName,callback) {
+        // 当前事件未存在，则初始化当前事件为 []，用于存放该事件对应的 callback
+        if (!this.eventMap[eventName]) {
+          this.eventMap[eventName] = []
+        }
+
+        this.eventMap[eventName].push(callback)
+      }
+
+      off(eventName,callback) {
+        let cbs = this.eventMap[eventName]
+        // 找到当前要移除的事件的回调函数，删除
+        const index = cbs.indexOf(callback)
+        if (index !== -1) {
+          cbs.splice(index,1)
+          this.eventMap[eventName] = cbs
+        }
+      }
+
+      emit(eventName,...params) {
+        // 找出对应事件的所有回调，执行
+        const cbs = this.eventMap[eventName]
+        if (cbs.length) {
+          cbs.forEach(cb => cb(...params))
+        }
+      }
+    }
+  </script>
+</body>
+</html>

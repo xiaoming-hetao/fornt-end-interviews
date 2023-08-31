@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //动态规划：有最优子结构和重叠子问题(最长递增子序列、最小编辑距离、背包问题、凑零钱问题)
+    //爬楼梯问题的本质是斐波那契数列
+    // 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+    // 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+   
+   // 动态规划算法的递归实现（尾递归优化）
+   function climbStairs(n,pre,next) {
+    if (n<=1) return pre;
+    return climbStairs(n-1,next,pre+next)
+   }
+  
+   // 动态规划算法的迭代实现（没有备忘录）
+   function climbStairs1(n) {
+    if (n < 1) {
+      return false;
+    } else if (n===1 || n===2) {
+      return n
+    } else {
+      let pre = 1,
+          next = 2,
+          res = 0;
+      for (let i =2; i<n; i++) {
+        res = pre+next;
+        pre = next;
+        next = res;
+      }
+      return res;
+    }
+   }
+
+   // 动态规划算法的迭代实现（有备忘录,用数组来存储之前计算过的值）
+   function climbStairs2(n) {
+      if (n<1) {
+        return false;
+      } else if (n===1 || n===2) {
+        return n;
+      } else {
+        let arr = [];
+        arr[1] = 1;
+        arr[2] = 2;
+        for (let i=3; i<=n; i++) {
+          arr[i] = arr[i-1] + arr[i-2];
+        }
+
+        return arr[n];
+      }
+   }
+
+   console.log(climbStairs1(5),climbStairs2(5))
+  </script>
+</body>
+</html>

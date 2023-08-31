@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    async function sleep(delay) {
+      // setTimeout(test1, delay);
+    }
+
+
+    async function test() {
+      for (let i=1; i<=5; i++) {
+        console.log(i);
+        await sleep(1000);
+      }
+    }
+    async function test1() {
+      console.log('test')
+    }
+    console.log(test1())
+    test()
+  </script>
+</body>
+</html>

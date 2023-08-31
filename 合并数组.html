@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		//请把俩个数组 [A1, A2, B1, B2, C1, C2, D1, D2] 和 [A, B, C, D]，合并为 [A1, A2, A, B1, B2, B, C1, C2, C, D1, D2, D]
+
+		//方法1.(把数组2的元素，按顺序来选择插入) charAt方法，返回字符串中指定位置的字符
+		const arr1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2']
+		const arr2 = ['A', 'B', 'C', 'D']
+		const ret = []; //要输出的数组
+		let tem = arr2[0]; //先把arr2中的第一个元素插入arr1
+		let j = 0;
+		for (let i=0; i<arr1.length; i++) {
+			if (tem === arr1[i].charAt(0)) {
+				ret.push(arr1[i])
+			} else {
+				ret.push(tem);
+				ret.push(arr1[i]);
+				tem = arr2[++j];
+			}
+
+			if (i === arr1.length-1) {
+				ret.push(tem); //D插在最后
+			}
+		}
+		console.log(ret);
+
+		//方法2 数组的map方法
+		//map方法返回一个数组，数组中元素是原数组调用函数处理后的值
+		//map方法按照原数组元素依次处理元素，不会对空数组进行检测，不会改变原数组
+		//字符串的includes方法
+		//split() 方法用于把一个字符串分割成字符串数组。
+		//stringObject.split(separator,howmany)
+		//如果把空字符串 ("") 用作 separator，那么 stringObject 中的每个字符之间都会被分割
+		let a1 = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2']
+		let a2 = ['A', 'B', 'C', 'D'].map((item) => {
+			return item + 3;
+		});
+		let a3 = [...a1,...a2].sort().map((item) => {
+			if (item.includes('3')) {
+				return item.split('')[0];
+			}
+			return item;
+		});
+
+		console.log(a3);
+
+
+	</script>
+
+	<script>
+		//arrayObject.sort(sortby)方法。sortby可选，规定排序顺序。必须是函数(比较函数)。
+		//如果调用该方法时没有使用参数，将按字母顺序对数组中的元素进行排序，说得更精确点，是按照字符编码(utf-16)的顺序进行排序。要实现这一点，首先应把数组的元素都转换成字符串（如有必要），以便进行比较。
+
+
+		//使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果 
+		const b = [3, 15, 8, 29, 102, 22];
+		console.log(b.sort())//[102, 15, 22, 29, 3, 8]
+		console.log(b.sort((a,b) => {
+			return a-b;
+		}));//[3, 8, 15, 22, 29, 102],从小到大排序
+		console.log(b.sort((a,b) => {
+			return b-a;
+		}));// [102, 29, 22, 15, 8, 3] 从大到小排序
+	</script>
+</body>
+</html>

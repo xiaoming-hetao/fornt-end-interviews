@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 执行顺序：主线程 >> 主线程上创建的微任务 >> 主线程上创建的宏任务
+    // console.log(1)
+
+    // setTimeout(() => {
+    //   console.log(2)
+
+    //   new Promise(resolve => {
+    //     console.log(8)
+    //     resolve()
+    //   }).then(() => console.log(6))
+    // },100)
+
+    // console.log(3)
+
+    // setTimeout(() => {
+    //   console.log(4)
+    //   Promise.resolve().then(() => {
+    //     console.log(7)
+    //   })
+    // },0)
+
+    // Promise.resolve().then(() => {
+    //   console.log(9)
+    // })
+
+    // console.log(5)
+
+    // 宏任务队列 1
+setTimeout(() => {
+  // 宏任务队列 2.1
+  console.log('timer_1');
+  setTimeout(() => {
+    // 宏任务队列 3
+    console.log('timer_3')
+  }, 0)
+  new Promise(resolve => {
+    resolve()
+    console.log('new promise')
+  }).then(() => {
+    // 微任务队列 1
+    console.log('promise then')
+  })
+}, 0)
+ 
+setTimeout(() => {
+  // 宏任务队列 2.2
+  console.log('timer_2')
+}, 0)
+console.log('========== Sync queue ==========')
+
+
+  </script>
+</body>
+</html>

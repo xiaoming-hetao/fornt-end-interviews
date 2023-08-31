@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 将一个绝对路径简化
+    //  * 在一个类 Unix 系统中, 一个点(.)表示当前路径, 两个点(..)表示上一层目录
+    //  *
+    //  * 比如,
+    //  *  输入 /root/./user/../../work/, 输出 /work
+    //  *  输入 /root/../../user/../work//.//, 输出 /work
+    //  *  输入 /root//user////work/koa//././/.., 输出 /root/user/work
+    //  */
+
+    // /**
+    //  * @param {string} path
+    //  * @return {string}
+    //  */
+
+    let path1 = '/root//user////work/koa//././/..';
+    let path2 = '/root/./user/../../work/';
+    let path3 = '/root/../../user/../work//.//';
+    function simplifyPath(path) {
+      let arr = path.split('/').filter((item) => {
+        return item !== '' && item !== '.';
+      });
+      let res = [];
+      for (let i=0; i<arr.length; i++) {
+        if (arr[i] !== '..' ) {
+          res.push(arr[i])
+        } else {
+          res.pop();
+        }
+      }
+      console.log('/'+res.join('/'))
+      return res.join('/');
+    }
+    simplifyPath(path1);
+    simplifyPath(path2);
+    simplifyPath(path3);
+  </script>
+</body>
+</html>

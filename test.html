@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    div:: first-child {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <nav>   111</nav>
+  <!-- 预格式化标签，保留其中文本的原本格式（空格等） -->
+  <pre>   2222222</pre>
+  <mark>333333333</mark>
+  <div><a href="http://www.w3.org/">链接到W3C</a></div>
+  <!-- 如果一个元素拥有ID属性,那么ID属性的属性值就会成为window对象的属性名 -->
+  <div id="foo"></div>
+  <script>
+   var strPrimitive = "I am a string"; 
+   console.log(typeof strPrimitive)
+   var handler = {      
+    message: "Event handled", 
+    handleClick: function(event){         
+      alert(this.message);     
+    } 
+   }; 
+   handler.handleClick();
+   console.log(window.foo)
+
+   //const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动
+   // 对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量
+   // 但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针,不能将其指向另一个地址，但是其本身是可以变的，即可以添加属性和方法
+   const a = {};
+   a.b=2;
+   console.log(a)
+  </script>
+</body>
+</html>

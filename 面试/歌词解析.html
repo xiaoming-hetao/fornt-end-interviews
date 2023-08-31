@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+   // 要实现对歌词进行解析和处理，你可以使用以下步骤：
+
+// 1. 将歌词文本按照每行进行分割，得到一个包含每行歌词的数组。
+// 2. 遍历歌词数组，对每一行歌词进行解析，提取出时间和歌词内容。
+// 3. 可以使用正则表达式来提取时间，例如 `\[(\d {2}):(\d {2})\.(\d {2})\]` 可以匹配 `[00:00.50]` 这样的时间格式。
+// 4. 将提取到的时间转换成毫秒数，可以使用以下公式：`time = minutes * 60 * 1000 + seconds * 1000 + milliseconds`。
+// 5. 将时间和歌词内容存储在一个对象中，可以使用数组或者对象来存储多个歌词对象。
+// 6. 最后得到一个包含所有歌词对象的数组或者对象。
+
+
+const lrc = `[00:00.50] 蔡健雅 - 依赖
+[00:07.94] 词、曲：蔡健雅、陶晶莹
+[00:11.60] 关了灯把房间整理好
+[00:15.48] 凌晨三点还是睡不著
+[00:19.64] 你应该是不在　所以把电话挂掉 `;
+
+
+
+function parseLyrics(lrc) {
+  // 分割歌词文本，得到每行歌词
+  const lines = lrc.split ('\n');
+
+  // 用于存储歌词对象的数组
+  const lyrics = [];
+
+  // 遍历每行歌词进行解析
+  for (let line of lines) {
+    // 提取时间和歌词内容
+    // . 表示匹配除换行符 \n 之外的任何单字符，*表示零次或多次
+    const match = line.match(/\[(\d{2}):(\d{2})\.(\d{2})\](.*)/);
+   
+    if (match) {
+      const minutes = parseInt(match[1]);
+      const seconds = parseInt(match[2]);
+      const milliseconds = parseInt(match[3]);
+      const time = minutes * 60 * 1000 + seconds * 1000 + milliseconds;
+      const text = match[4];
+      
+      // 存储歌词对象
+      lyrics.push([time,text]);
+    }
+  }
+
+  return lyrics
+}
+
+
+
+function getText(time) {
+
+  const lyrics = parseLyrics(lrc)
+  console.log(lyrics);
+  lyrics.sort((a,b) => b[0] - a[0])
+
+  let ret = ''
+  for (let [curTime,lyricItem] of lyrics) {
+    if (time >= curTime) {
+      ret = lyricItem
+      break
+    }
+  }
+
+  return ret
+}
+
+console.log(getText(50))
+console.log(getText(7200))
+
+
+  </script>
+</body>
+</html>

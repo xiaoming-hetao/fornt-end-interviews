@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给Array本地对象增加一个原型方法，它用于删除数组条目中重复的条目(可能有多个)，返回值是一个包含被删除的重复条目的新数组。
+
+    Array.prototype.distinct = function() {
+      let res = [];
+      for (let i=0; i<this.length; i++) {
+        for (let j=i+1; j<this.length; j++) {
+          if (this[i] === this[j]) {
+            res.push(this.splice(j,1)[0]);
+          }
+        }
+      }
+
+      return res;
+    }
+
+    console.log(['a','b','c','d','b','a','e'].distinct())
+  </script>
+</body>
+</html>

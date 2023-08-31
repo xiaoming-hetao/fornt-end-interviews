@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // add('99999999','123123')
+    // add('9999999.9999999','1111')
+    // add('99999.99999','1111.1111')
+    // add('-9999999','12323123')  
+    // add('-99999','-1111')
+
+    function twoSumPlus(num1,num2) {
+      // 双指针，从后往前相加
+      let point1 = num1.length-1,point2 = num2.length-1
+
+      let flag = 0,ret = []
+
+      while(point1 >= 0 || point2 >= 0) {
+        const x = point1 >= 0 ? +num1[point1] : 0
+        const y = point2 >= 0 ? +num2[point2] : 0
+
+        const sum = x+y+flag
+        ret.unshift(sum%10)
+        flag = Math.floor(sum/10)
+
+        point1--
+        point2--
+      }
+      // 最后还有进位，则需要加到头部
+      if (flag > 0) {
+        ret.unshift(flag)
+      }
+
+      return {
+        flag: flag.toString(),
+        sumResult: ret.join('')
+      }
+    }
+
+    function add(num1,num2) {
+      let dotFlag = false //小数标志位
+      let intFlag = true // 整数标志位
+      let plusResult = ''
+
+      // 处理负数
+      if (/\-/.test(num1) || /\-/.test(num2)) {
+       intFlag = false
+       num1 = num1.replace('-','')
+       num2 = num2.replace('-','')
+      }
+
+      // 处理小数
+      if (/\./.test(num1) && /\./.test(num2)) { // 同为小数
+        const tempNum1 = num1.split('.')
+        const tempNum2 = num2.split('.')
+
+        // 整数部分相加
+        const intResult = twoSumPlus(tempNum1[0],tempNum2[0])
+        // 小数部分相加
+        const floatResult = twoSumPlus(tempNum1[1],tempNum2[1])
+        // 如果小数部分需要进位，则进位需要再和整数部分相加,同时小数部分的相加结果需要去掉进位
+        if (floatResult.flag > 0) {
+          const flagAndIntResult = twoSumPlus(intResult.sumResult,floatResult.flag)
+          plusResult = flagAndIntResult.sumResult + '.' + floatResult.sumResult.substring(1)
+        } else {
+          plusResult = intResult.sumResult + '.' + floatResult.sumResult
+        }
+      } else if (/\./.test(num1) || /\./.test(num2)) { // 有一个为小数
+
+        if (/\./.test(num1)) {
+          const tempNum1 = num1.split('.')
+          const sum = twoSumPlus(tempNum1[0],num2)
+          plusResult = sum.sumResult + '.' + tempNum1[1]
+        } 
+        if (/\./.test(num2)) {
+          const tempNum2 = num2.split('.')
+          const sum = twoSumPlus(tempNum2[0],num1)
+          plusResult = sum.sumResult + '.' + tempNum2[1]
+        }
+
+      } else { // 都为整数
+        const intResult = twoSumPlus(num1,num2)
+        plusResult = intResult.sumResult
+      }
+
+      return intFlag ? plusResult : ('-' + plusResult)
+      
+    }
+    console.log(add('99999.99999','1111.1111'))
+    console.log(add('-99999.99999','1111.1111'))
+     console.log(add('-99999.99999','11111.1111'))
+     console.log(add('-9999999','12323123'))
+  </script>
+</body>
+</html>

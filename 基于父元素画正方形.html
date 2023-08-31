@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style type="text/css">
+    .parent {
+      width: 300px;
+      background: yellow;
+    }
+    .child {
+      width: 50%;
+      /*方法一 padding-bottom*/
+      padding-bottom:  50%;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 父元素    宽  不知道； 高度 0 -->
+
+<!-- 写出子元素 -->
+<!-- 正方形   宽度 是父元素 50% -->
+<!-- 当padding 的取值是百分比的时候，它是相对于父元素的宽度； 一个div在没有明确设置高度，里边又没有内容的情况下，高度是0。所以我们可以在垂直方向上设置padding-top或者padding-bottom。注意设置padding-left或padding-right不会生效（因为子元素的高度依然是0） -->
+  <div class="parent">
+    <div class="child">
+    </div>
+  </div>
+</body>
+</html>

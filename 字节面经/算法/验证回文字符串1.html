@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+    // 输入: "A man, a plan, a canal: Panama"
+    // 输出: true
+
+    // 输入: "race a car"
+    // 输出: false
+    let reg = new RegExp(/[&\/\\#,。!\[\]\s-=@_()$~%.'":;``*?<>{}]/g);
+    let str ="0P"
+    let handlestr = str.replace(reg,'')
+    console.log(handlestr)
+    // slice,substring若第一个参数等于大于第二个参数,则返回空字符串.
+    console.log(handlestr.slice(-3,-2))
+    console.log(handlestr.slice(1))
+    console.log(handlestr.slice(-2))
+    // console.log(reg.exec(str))
+    // console.log(reg.compile(str))
+    let isPalindrome = function(s) {
+      if (!s) {
+        return true
+      }
+
+      let reg = new RegExp(/[&\/\\#,。!\[\]\s-=@_()$~%.'":;``*?<>{}]/g)
+      let str = s.replace(reg, '')
+      let firstIndex = 1;
+      let len = str.length;
+      for (let i=0; i< Math.floor(len/2); i++) {
+        let first = str.slice(i,firstIndex);
+        let last = str.slice(len-i-1,len-i);;
+       
+       if (typeof first !== number && typeof last !== number) {
+          if (first.toLowerCase() !== last.toLowerCase()) {
+            return false;
+          }
+        
+         
+       } else {
+          if (first !== last) {
+            return false
+          }
+       }
+        firstIndex++;
+        
+      }
+
+      return true;
+      
+    };
+    isPalindrome(str)
+  </script>
+</body>
+</html>

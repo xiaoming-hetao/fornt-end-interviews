@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function deepClone(obj) {
+      let copy;
+      switch (typeof obj) {
+        case 'undefined':
+          break;
+        case 'number':
+          copy = obj - 0;
+          break;
+        case 'string':
+          copy = obj + '';
+          break;
+        case 'boolean':
+          copy = obj;
+          break;
+        case 'object'://对象分为数组和对象
+          if (obj === null) {
+            copy = null;
+          } else {
+            if (Object.prototype.tostring.call(obj) === '[object Array]') {//数组
+              copy = [];
+              for (let i=0; i<obj.length; i++) {
+                copy.push(deepClone[obj[i]]);
+              }
+            } else {//对象
+              copy = {};
+              for (let item in obj) {
+                copy[item] = deepClone(obj[item])
+              }
+            }
+          }
+          break;
+          default:
+            copy = obj;
+            break;
+      }
+
+      return copy;
+    }
+  </script>
+</body>
+</html>

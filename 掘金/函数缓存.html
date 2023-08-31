@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    const add = (a,b) => a+b
+    const memoried = (fn) => {
+      const cache = {}
+
+      return (...args) => {
+        if (!cache[args]) {
+          cache[args] = fn.apply(this,args)
+          
+        } else {
+           console.log('cache')
+        }
+
+        return cache[args]
+      }
+    }
+    const calc = memoried(add)
+    console.log(calc(1,2))
+    console.log(calc(1,2))
+  </script>
+</body>
+</html>

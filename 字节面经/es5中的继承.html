@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //构造函数
+    function Person(name,age) {
+      this.name = name;
+      this.age = age;
+      this.greed = function() {
+        console.log('Hello,I am '+this.name);
+      }
+    }
+    Person.prototype.getInfo = function() {
+      console.log(this.name + ',' + this.age)
+    }
+
+    // 1、修改原型链继承（通过将子类的prototype指向父类的实例来实现）
+
+    function Student1() {
+
+    }
+    Student1.prototype = new Person();//子类的prototype指向父类的实例
+    Student1.prototype.name = 'xiaoming';
+    Student1.prototype.age = 22;
+    let stud1 = new Student1();
+    stud1.getInfo();
+
+    // 在原型继承这种方式中，stud对象既是子类的实例，又是父类的实例。缺点是在子类的构造函数中无法通过传参的方式对父类继承的属性值进行修改，只能通过修改prototype的方式进行修改
+
+
+    // 2、调用父类的构造函数的继承
+
+    function Student2(name,age,sex) {
+      Person.call(this);
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+    }
+    let stud2 = new Student2('xiaoming',22,'male');
+    stud2.greed();
+    // stud2.getInfo();//stud2.getInfo is not a function
+   
+
+    // 这种方式避免了原型链继承的缺点，直接在子类中调用父类的构造函数，这样，stud2对象只是子类的实例，不是父类的实例,而且只能调用父类实例中的定义的方法，不能调用父类原型上定义的方法。
+
+
+    // 3、组合继承（上诉两种继承方式的组合体）
+    function Student3(name,age,sex) {
+      Person.call(this);
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+    }
+    Student3.prototype = new Person();//第一次
+    let stud3 = new Student3('xiaoming',22,'male');//第二次
+    stud3.greed();
+    stud3.getInfo();
+
+    // 这种方式结合了上诉两种继承方式的优点，唯一的问题是调用了两次父类的构造函数，这造成了一定的内存浪费
+  </script>
+</body>
+</html>

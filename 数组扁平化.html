@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script>
+    alert(typeof [1,2,3])//object
+    alert([1,2,3] instanceof Array)//true
+    //es6的flat()可以把一个数组拉平
+    console.log(...([1,2,[3]].flat()))//1 2 3,默认拉平一层
+    // flat(number)number指定拉平的层数
+    // flat(Infinity)Infinity关键字代表不管数组嵌套多少层，多会变为一维数组
+
+    //数组的扁平化
+
+    function arrFlat(arr) {
+      return arr.flat(Infinity);
+    }
+    let a= [1,2,3,[4,5],6,[7,[8]]]
+    let flata = arrFlat(a);
+    console.log(flata);
+
+    const arr1 = [11, 2345, 323, 44, [13, 22, 32, [12, 22, 32, [12, 22, 32]]], 5, "hello", { name: "test" }]
+
+    function flat(arr,n) {
+    
+      let newArr = arr.reduce((pre,cur) => {
+        if (Array.isArray(cur) && n > 0) {
+          return [...pre,...flat(cur,n-1)]
+        } else {
+          return [...pre,cur]
+        }
+      },[])
+
+      return newArr
+    }
+  </script>
+</body>
+</html>

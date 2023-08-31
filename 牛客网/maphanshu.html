@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  yarn add webpack webpack-cli html-webpack-plugin @babel/core babel-loader @babel/preset-env @babel/preset-react -D
+  <script type="text/javascript">
+    // ES5
+    // orEach(), filter(), reduce(), every() 和some()都会跳过空位。
+    // map()会跳过空位，但会保留这个值
+    // join()和toString()会将空位视为undefined，而undefined和null会被处理成空字符串。
+    // ES6 中都会将空位当做undefined
+
+    let array = [,1,,2,,3];
+    array = array.filter((i) => ++i);
+    console.log(array)
+    console.log(array.join(''))
+    // ！是逻辑运算符，所以会转成Boolean，[ ]转成true,前面加！！所以还是true
+    console.log(!![])//true
+  </script>
+</body>
+</html>

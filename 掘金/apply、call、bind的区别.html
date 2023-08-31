@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //apply的定义：
+    // apply方法调用一个函数，其具有一个指定的this值，以及作为一个数组提供的参数
+    // 语法：fun.apply(thisArg,[argsArray])
+    // thisArg:在fun函数运行时指定的this值
+    // [argsArray]:一个数组或类数组对象，其中的数组元素作为单独参数传给fun函数
+        var a ={
+            name : "Cherry",
+            fn : function (a,b) {
+                console.log( a + b)
+            }
+        }
+
+        var b = a.fn;
+        b.apply(a,[1,2])     // 3
+  </script>
+</body>
+</html>

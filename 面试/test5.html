@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //升序数组,找出给定元素的上界(小于等于给定元素)，如果不存在，则返回 -1
+    // nums = [1,2,3,4,5,6,7,9,10] ,value = 8,则应该返回 target = 7
+
+    function search(nums,value) {
+
+      let left = 0, right = nums.length-1
+
+      while(left <= right) {
+        let midIndex = Math.floor((left+right)/2)
+       
+        let mid = nums[midIndex]
+        if (value === nums[mid]) {
+          return mid
+        } else if (value > nums[mid]) {
+          left = midIndex+1
+        } else {
+          right = midIndex-1
+        }
+      }
+
+      return nums[left]
+    }
+    const nums = [1,2,3,4,5,6,7,9,10],value = 8
+    console.log(search(nums,value))
+  </script>
+</body>
+</html>

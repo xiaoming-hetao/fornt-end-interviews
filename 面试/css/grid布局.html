@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+   .father {
+            display: grid;
+            align-items:center;
+            justify-content: center;
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+
+        }
+        .son {
+            width: 10px;
+            height: 10px;
+            border: 1px solid red
+        }
+    .box {
+    width: 300px;
+    display: grid;
+    align-items:center;
+    /*三列两行*/
+
+    /*grid-template-columns是建立列。如上图，行的宽度是100px，我们写了3个100px，就是3列*/
+    grid-template-columns: 100px 100px 100px;
+    /*grid-template-rows是建立行。如上图，行的高度是50px，我们写了2个50px，就是2行。*/
+    grid-template-rows: 50px 50px 50px;
+
+  }
+  .box>div{
+    background: gray;
+    text-align: center;
+    font-size: 24px;
+    border: 2px solid white;
+  }
+  </style>
+</head>
+<body>
+  <div class="box">      
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
+      <div>9</div>      
+  </div>
+  <div class="father">
+    <div class="son"></div>
+</div>
+</body>
+</html>

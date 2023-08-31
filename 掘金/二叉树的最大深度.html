@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 给定二叉树 [3,9,20,null,null,15,7]，返回它的最大深度 3 
+
+    // 方法1 递归
+    // 递归思路：
+    // (1)每次遍历左右子树,然后比较它们的大小,取最大值
+    // (2)递归:深度加1
+
+    let maxDepth1 = function(root) {
+      if (!root) {
+        return 0;
+      }
+
+      return Math.max(maxDepth1(root.left), maxDepth1(root.right)) +1;
+    }
+
+    // 方法2 BFS
+    // 思路：
+    // (1)每次用一个数组temp保存上一层的所有节点，每次的计数器count+1
+    // (2)当temp为空的时候，此时到达了叶子结点
+
+    let maxDepth2 = function(root) {
+      if (!root) {
+        return 0
+      }
+      let queue = [root],count = 0;
+      while (queue.length) {
+        let temp = [];
+        for (let i=0; i<queue.length;i++) {
+          if (queue[i].left) temp.push(queue[i].left);
+          if (queue[i].right) temp.push(queue[i].right)
+        }
+        count++;
+        queue = temp;
+      }
+      return count;
+    }
+    alert([3,null,3,null] !== [3,null,3,null].reverse())
+    let test1 = 1;
+    let test2 = 3;
+    if (test1 === 1 && test2 === 2) {
+      alert(true);
+    } else if (test1 ===0 || test2 === 3) {
+      alert(false)
+    }
+  </script>
+</body>
+</html>

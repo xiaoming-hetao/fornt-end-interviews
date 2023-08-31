@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 类型映射 in, 一般搭配 keyof 使用
+
+    // 1、实现一个约束类型Readonly，使得interface的属性变为只读
+
+    type Readonly<T> = {
+      readonly [P in keyof T]: T[P]
+    }
+
+    // 示例
+    interface Obj {
+      a: string
+      b: string
+    }
+
+    type ReadOnlyObj = Readonly<Obj>
+
+    // 最终得到新接口
+    ReadOnlyObj {
+      readonly a: string
+      readonly b: string
+    }
+
+    // 2、实现一个约束类型，使得被约束的interface的属性变为可选
+
+    type Partial<T> = {
+      [P in keyof T]?: T[P] 
+    }
+  </script>
+</body>
+</html>

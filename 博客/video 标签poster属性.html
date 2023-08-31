@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <video controls id="video" preload="auto">
+     <source src="https://www.runoob.com/try/demo_source/movie.mp4"  type="video/mp4">
+      <!-- https://foody-website.sp-cdn.shopee.com/api/v4/22544241/food-website-video-bucket/food-website-file-9e210ef096bbf7c7e93d04f355d7805b.mp4#t=0.01 -->
+  </video>
+  <script type="text/javascript">
+    const video = document.getElementById('video')
+// video.currentTime = 1
+    video.addEventListener('loadeddata',function() {
+      const canvas = document.createElement('canvas')
+      // 画布的宽高由视频的宽高决定
+      canvas.height = video.clientHeight
+      canvas.width = video.clientWidth
+
+      console.log( video.currentTime,' video.currentTime')
+      const context = canvas.getContext('2d')
+      context.drawImage(video,0,0,canvas.width,canvas.height)
+      const dataURL = canvas.toDataURL('image/jpeg')
+      console.log(dataURL)
+      video.setAttribute('poster',dataURL)
+    })
+  </script>
+</body>
+</html>

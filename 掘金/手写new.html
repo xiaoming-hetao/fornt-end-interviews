@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+
+    // new 操作符调用构造函数所经历的阶段
+    // 1. 创建一个新的对象
+    // 2. 所创建对象的__proto__属性值设置为构造函数的prototype
+    // 3. 执行构造函数中的代码，构造函数中的this指向新创建的对象
+    // 4. 返回新的对象
+
+    // 1. 创建（或者说构造）一个全新的对象。 2. 这个新对象会被执行 [[ 原型 ]] 连接。 3. 这个新对象会绑定到函数调用的 this。 4. 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。
+
+
+    function myNew(constructor, ...rest) {
+      if (typeof constructor !== 'function') {
+        return constructor;
+      }
+      //Object.create(proto, [propertiesObject])
+       //方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。
+      // proto : 必须。表示新建对象的原型对象，即该参数会被赋值到目标对象(即新对象，或说是最后返回的对象)的原型上。该参数可以是null， 对象， 函数的prototype属性 （创建空的对象时需传null , 否则会抛出TypeError异常）。
+
+
+      // 创建新的对象，关联构造函数的原型对象
+      const _constructor = Object.create(constructor.prototype);
+      // 执行构造函数(call和apply都是调用一个对象的一个方法，用另一个对象替换当前对象)
+      const obj = constructor.apply(_constructor, rest);
+
+      // 如果构造函数的执行结果是对象，则返回结果
+      if (typeof obj === 'object'){
+        return obj;
+      } else {
+        return _constructor;
+      }
+    }
+
+    // 分四步走
+
+    // 创建一个新的对象obj
+
+    // 将对象与构造函数通过原型链连接起来
+
+    // 将构造函数中的this绑定到新建的对象obj上
+
+    // 根据构造函数返回类型作判断，如果是原始值则被忽略，如果是返回对象，需要正常处理
+
+    function myNew1(Func,...args) {
+      const obj = {}
+
+      obj.__proto__ = Func.prototype
+
+      let result = Func.apply(obj,args)
+
+      return result instanceof Object ? result: obj
+    }
+
+    let Person = function(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    console.log(myNew(Person, 'xiaoming', 22));
+    console.log(new Person('xiaoming', 22));
+  </script>
+</body>
+</html>

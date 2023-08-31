@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
+    function myPromiseAll(promise) {
+      return new Promise((resolve,reject) => {
+        let result = [] // 保存所有promise的返回值
+        let count = 0 // 记录成功的promise的个数
+
+        for (let i=0; i<promise.length; i++) {
+          //有时需要将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用
+          Promise.resolve(promise[i]).then((res) => {
+            result[i] = res
+            count++
+            // 全部成功，状态变为 fulfilled
+            if (count === promise.length) {
+              resolve(result)
+            }
+          },(err) => { // 如果有一个报错，则状态变为 rejected
+            reject(err)
+          }
+          )
+        }
+
+      })
+    }
+
+
+    // test
+    let p1 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(1)
+        }, 1000)
+    })
+    let p2 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(2)
+        }, 2000)
+    })
+    let p3 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(3)
+            throw new Error('test');
+        }, 3000)
+    })
+
+    myPromiseAll([p1,p2,p3]).then(res => console.log(res))
+
+    function PromiseAll(promises) {
+      return new Promise((resolve,reject) => {
+        let result = [],count = 0
+
+        for (let i=0; i<promise.length; i++) {
+            Promise.resolve(promise[i]).then((res) => {
+                result[i] = res
+                count++
+
+                if (count === promises.length) {
+                  resolve(result)
+                }
+              },(err) => {
+                reject(err)
+              })
+          }
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+
+    // 递归写法
+
+    let hashPathSum = function(root, sum) {
+      if (root === null) return false;
+      if (root.left === null && root.right === null) { //到达叶子结点
+        if (sum === root.val) return true;
+      }
+
+      return hashPathSum(root.left, sum-root.val) || hashPathSum(root.right, sum - root.val);
+    }
+
+    // BFS
+    let hashPathSum = function(root, sum) {
+      if (root === null) return false;
+
+      let queue = [root];
+
+      let pathSum = [root.val];//记录到每个节点的值
+      while (queue.length) {
+        let temp = [];
+        for (let i=0; i<queue.length; i++) {
+
+          // 队列先进先出
+          let nodeSum = pathSum.shift();
+
+          if (queue[i].left === null && queue[i].right === null && nodeSum === sum) { //叶子节点
+            return true;
+          }
+          if (queue[i].left) {
+            temp.push(queue[i].left);
+            pathSum.push(nodeSum+queue[i].left.val)
+          }
+          if (queue[i].right) {
+            temp.push(queue[i].right);
+            pathSum.push(nodeSum+queue[i].right.val)
+          }
+        }
+
+        queue = temp;
+        
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>

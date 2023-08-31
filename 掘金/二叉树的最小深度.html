@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //递归
+    // 思路：
+    // 1. 判断当前节点是否为根，并且是否为空，是的话，返回0
+    // 2. 当前节点的左右子树都是null时，该节点就是目标节点，返回1
+    // 3. 当前节点的左子树不为null，找左子树的深度
+    // 4. 当前节点的右子树不为null,找右子树的深度
+    // 5. 比较两者,返回的结果就是条件3,4中的最小值,再加上1
+
+    let minDepth1 = function(root) {
+      if (root === null) return 0;
+      if (root.left === null & root.right === null) return 1;
+      let max = 10000;
+      if (root.left) max = Math.min(max,minDepth(root.left));
+      if (root.right) max = Math.min(max,minDepth(root.right));
+
+      return max+1;
+    }
+
+    // BFS
+    // 思路：遍历树的每一层，当这一层的节点都没有左右子树是，直接返回结果
+    // 遍历每一层的节点，在当前层，当某个节点的的左右子树都为空时，即为目标节点
+
+    let minDepth2 = function(root) {
+      if (root === null) return 0;
+      let layer = [root],res=0;
+
+      while (layer.length) {
+        let temp = [];
+        res++;
+        for (let i=0; i<layer.length; i++) {
+          if (layer[i].left === null && layer[i].right === null) return res;
+          if (layer[i].left) temp.push(layer[i].left);
+          if (layer[i].right) temp.push(layer[i].right);
+        }
+        // 遍历下一层
+        layer = temp;
+      }
+
+      return res;
+    }
+  </script>
+</body>
+</html>

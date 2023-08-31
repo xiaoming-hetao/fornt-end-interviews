@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>函数中也会存在变量提升</title>
+</head>
+<body>
+	<script>
+		//41题 下面代码依次输出undefine 10 20
+		var a = 10;
+		(function () {
+		    console.log(a)
+		    a = 5//由于变量声明提升，a = 5; 这条语句执行时，局部的变量a已经声明，因此它产生的效果是对局部的变量a赋值
+		    //console.log(a);5
+		    console.log(window.a)
+		    var a = 20;//定义了局部变量a，由于js的变量声明提升机制，局部变量a的声明会被提升至立即执行函数的函数体最上方，且由于这样的提升并不包括赋值
+		    console.log(a)
+		})()
+
+		//如果把var a = 20注释掉，那么a只有在外部声明，输出的将是10 5 5
+
+		const set = new Set([1, 1,2, 3,2, 4, 4]);
+		console.log([...set])
+	</script>
+</body>
+</html>

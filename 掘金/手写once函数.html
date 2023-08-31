@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 实现一个once函数，传入函数参数只执行一次
+
+    function execOnce(fn) {
+      let flag = true;
+      return function() {
+        if (flag === true) {
+          fn.apply(null, arguments);
+          flag = false;
+        }
+      }
+
+      return undefined
+    }
+
+   
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+    // 输入: "aba"
+    // 输出: True
+
+    // 输入: "abca"
+    // 输出: True
+    // 字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。
+
+    // 双指针，头尾指针
+
+    function isHuiwen(s,left, right) {
+       while (left < right) {//左右指针相遇，结束循环
+
+        if (s[left] !== s[right]) {
+          return false;
+        }
+        left++;
+        right--;
+      }
+      return true;
+    }
+    let validPalindrome = function(s) {
+      let len = s.length;
+      if (len > 50000) {
+        return false;
+      }
+
+      let left = 0,
+          right = len-1;
+
+      while (left < right) {//左右指针相遇，结束循环
+
+        if (s[left] !== s[right]) {
+          // 删除left指向的那个字符或者删除right指向的字符
+          return isHuiwen(s,left+1, right) || isHuiwen(s,left, right-1)
+        }
+        left++;
+        right--;
+      }
+
+      return true;
+    };
+
+    console.log(validPalindrome('abca'))
+  </script>
+</body>
+</html>

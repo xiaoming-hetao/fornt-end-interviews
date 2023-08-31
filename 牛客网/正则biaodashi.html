@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let reg = /^[a-z]+$/;
+    let test1 = reg.test(null);
+    let test2 = reg.test();
+    console.log(test1,test2);
+
+    var arr = [1,2,3];
+    arr[10] = 1;
+    console.log(arr)
+    // filter() 不会对空数组进行检测
+    let res = arr.filter((x) => {
+      return x===undefined;
+    })
+    console.log(res);//[]
+  </script>
+</body>
+</html>

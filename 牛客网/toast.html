@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    #toast {
+      width: 200px;
+      height: 200px;
+      background: yellow;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      margin-left:-100px;
+      margin-top:-100px;
+      animation: toast 1s linear;
+    }
+    @keyframes toast {
+      0% {
+        transform:translateY(100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(50%)
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="toast"></div>
+  <script type="text/javascript">
+    let toast = ducument.getElementById('toast')
+    let parent = toast.parentNode;
+    setTimeout(() => {
+      parent.removeChildren(toast);
+    }, 2000)
+  </script>
+</body>
+</html>

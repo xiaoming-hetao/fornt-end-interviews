@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //在JS概念里，万物皆对象，所以数组不仅仅是数组本身，同时还是对象。length是数组本身独有的属性，对象没有该属性
+    // 所以操作arr.foo = 'c';，是给数添加一个foo属性，与length属性是并列的
+    var arr = [];
+    arr[0] = 0;
+    arr[1] = 1;
+    arr.foo = 'c';
+    console.log(arr.length);//2
+    console.log(arr);
+    console.log(arr.foo)//c
+  </script>
+</body>
+</html>

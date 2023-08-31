@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		var b = 10;
+		//函数声明优先于变量声明，这里函数b是一个相当于用const定义的常量，内部无法进行重新赋值
+		//如果在严格模式下，会报错Uncaught TypeError:Assignment to constant variable.（常数变量赋值），在非严格模式下会静默失效
+		(function b() {
+
+		  b = 20;
+		  console.log(b);
+		})()
+		//上述代码打印的是函数b
+		var a = 10;
+		(function a() {
+
+		  var a = 20;
+		  console.log(a);//20
+		  console.log(this.a)//10
+		  console.log(window.a)//10
+		})()
+		
+	</script>
+</body>
+</html>

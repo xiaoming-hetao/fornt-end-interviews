@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+    <ul id="li">
+        <li>li内容>>> <span> 这是span内容123</span></li>
+        <li>li内容>>> <span> 这是span内容456</span></li>
+        <li>li内容>>> <span> 这是span内容789</span></li>
+    </ul>
+
+    <script type="text/javascript">
+      // document.getElementsByTagName()返回的是数组
+      let ul = document.getElementsByTagName('ul')[0];
+      ul.addEventListener('click', function(e) {
+        console.log(e.target.innerText);
+      })
+      // 有个小bug，如果用户点击的是 li 里面的 span，就没法触发 fn，这显然不对
+    </script>
+</body>
+</html>

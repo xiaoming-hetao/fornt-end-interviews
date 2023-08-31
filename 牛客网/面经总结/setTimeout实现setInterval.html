@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <ul id="uls">
+    <li style="background:#aaa">0</li>
+    <li style="background:#bbb">1</li>
+    <li style="background:#ccc">2</li>
+    <li style="background:#ddd">3</li>
+</ul>
+  <script type="text/javascript">
+    var lis=document.getElementsByTagName('li');
+    for(var i = 0; i < lis.length; i++) {
+    lis[i].addEventListener('click', function(e) {
+    alert(i);
+    }, false)
+    }
+
+    
+    //方式1
+    function setTime() {
+     //do something
+     setTimeout(setTime, 200);
+    }
+    setTimeout(setTime, 200);
+
+    // 方式2
+    setTimeout(function() {
+      // do something
+      setTimeout(arguments.callee, 200);
+    }, 200)
+  </script>
+</body>
+</html>

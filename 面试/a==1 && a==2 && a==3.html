@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // valueOf()会把数据类型转换成原始类型
+    // toString()会把数据类型转换成string类型
+
+    // 优先级：
+    // 正常情况下,优先调用toString() 
+    // 有运算操作符的情况下valueOf()的优先级高于toString()
+    // 当调用valueOf()方法无法运算后还是会再调用toString()方法
+
+    let a = {
+      i:1,
+      valueOf: function() {
+        console.log('valueOf')
+       
+        return this.i++
+      },
+      toString: function() {
+        console.log('toString')
+        
+        return this.i++
+      }
+    }
+
+    if (a == 1 && a == 2 && a == 3) {
+      console.log(true)
+    }
+
+    console.log(+a)
+    var obj = {1: 1, 2: 2};
+    console.log(obj[a])
+
+  
+  </script>
+</body>
+</html>

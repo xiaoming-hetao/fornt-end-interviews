@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //set方法用来拦截某个属性的赋值操作，可以接受四个参数，依次为目标对象、属性名、属性值和 Proxy 实例本身，其中最后一个参数可选。
+
+    //假定Person对象有一个age属性，该属性应该是一个不大于 200 的整数
+
+    let validator = {
+      set: function(obj, prop, value) {
+        if (prop === 'age') {
+          if (!Number.isInteger(value)) {
+            throw new TypeError('The age is not an integer')
+          }
+          if (value > 200) {
+            throw new RangeError('The age seems invalid')
+          }
+        }
+
+        obj[prop] = value;
+      }
+    }
+    let person = new Proxy({}, validator);
+    person.age = 100;
+    console.log(person.age)
+    person.age = 'young' // 报错
+    person.age = 300 // 报错
+  </script>
+</body>
+</html>

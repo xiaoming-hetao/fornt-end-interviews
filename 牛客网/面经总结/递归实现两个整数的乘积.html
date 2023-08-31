@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // https://leetcode.cn/problems/recursive-mulitply-lcci/description/
+    ar multiply = function(A, B) {
+    if (B === 0) {
+        return 0
+    }
+
+    return A+multiply(A,B-1)
+};
+  </script>
+</body>
+</html>

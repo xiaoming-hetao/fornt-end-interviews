@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div id="mypic">onloading....</div>
+
+ <script type="text/javascript">
+    let img = new Image();
+    img.src="https://ss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=2338809465,934935445&fm=202&src=608&mola=new&crop=v1";
+    img.onload = function () {
+        alert('图片的宽为：'+img.width+'；图片的高度为：'+img.height);
+        document.getElementById("mypic").innerHTML="<img src='"+this.src+"'/>";
+    }
+</script>
+
+</body> 
+</html>

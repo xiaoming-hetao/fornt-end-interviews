@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //给定一个字符串，输出该字符串所有排列的可能。如输入“abc”，输出“abc,acb,bca,bac,cab,cba”
+
+    // 递归
+    // 遍历每个元素，并把字符串中除了该元素的其他元素进行全排列，然后把该元素和其他全排列生成的字符串合并
+    // ，如'abc',拿到a后，将bc再次进行全排列，返回的排列好的数组每一项再与a组合在一起得到最终的abc、acb；
+
+
+    function fullPermutate(str) {
+      let result = [];
+      if (str.length > 1) {
+        // 遍历
+        for (let i=0; i<str.length; i++) {
+          // 拿到当前元素
+          let cur = str[i];
+          //拿到剩下元素
+          let rest = str.slice(0, i) + str.slice(i+1, str.length);
+
+          // 剩下元素的全排列(递归)
+          let preResult = fullPermutate(rest);
+
+          // 合并cur 和 rest
+          for (let i=0; i<preResult.length; i++) {
+            let temp = cur + preResult[i];
+            result.push(temp);
+          }
+        }
+      } else if (str.length === 1) {
+        result.push(str);
+      }
+
+      return result;
+    }
+
+    function backTracking(str) {
+      let strArr = str.split('')
+      let res = []
+      let path = []
+      let used = []
+
+      const tempTracking = (strArr,path,used) => {
+        if (path.length === strArr.length) {
+          res.push(Array.from(path).join(''))
+          return
+        }
+
+        for (let i=0; i<strArr.length;i++) {
+          if (used[i]) continue
+          path.push(strArr[i])
+          used[i] = true
+          tempTracking(strArr,path,used)
+          // 回溯
+          path.pop()
+          used[i] = false
+        }
+      }
+
+      tempTracking(strArr,path,used)
+      return res
+    }
+
+    console.log(backTracking('abc'),123)
+
+    let res = fullPermutate('aaa');
+    console.log(res);
+    
+  </script>
+</body>
+</html>

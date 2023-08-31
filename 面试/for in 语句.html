@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+</head>
+<body>
+  <script src="./test.js"></script>
+  <script type="text/javascript">
+
+    // for in 语句可以遍历对象以及对象原型上的属性
+
+    function Person(name,age) {
+      this.name = name
+      this.age = age
+    }
+    Person.prototype = {
+      hobby: '篮球，摄影'
+    }
+    const obj = new Person('xiaoming',24)
+    
+    for (let prop in obj) {
+      console.log(prop)
+    }
+  </script>
+</body>
+</html>

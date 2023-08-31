@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //原地删除一个排好序的数组的中重复的元素，返回删除后的数组长度和数组本身
+    const nums = [0,0,1,1,1,3,3,4,5]
+
+    function handleRepeatedNum(nums) {
+      let point = 0
+
+      while(nums[point] !== undefined) {
+        if (nums[point] === nums[point+1]) {
+          nums.splice(point,1)
+        } else {
+          point++
+        }
+
+      }
+
+      return {
+        len: nums.length,
+        nums
+      }
+    }
+
+    console.log(handleRepeatedNum(nums))
+  </script>
+</body>
+</html>

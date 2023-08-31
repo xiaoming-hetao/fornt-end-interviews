@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //考虑两点
+    // 1. 第一个参数为undefined或null的时候，那么指向window
+    // 2. 改变了this指向，让新的对象执行该函数
+
+    Function.prototype.myCall = function(context) {
+      if (typeof context === 'undefined' || typeof context === 'null') {
+        context = window;
+      }
+
+      // 给context创建一个fn属性，并将值设置为要调用的函数
+      context.fn = this;
+      // 获取参数
+      const args = [...arguments].slice(1);
+      // 执行函数
+      const result = context.fn(...args);
+      delete context.fn;
+      return result;
+    }
+  </script>
+</body>
+</html>

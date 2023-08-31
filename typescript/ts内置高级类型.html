@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 1、Record ： 用来构造一个具有给定类型 T 的一组属性为K的类型，即所有K的类型都为T
+
+    type Record<K extends keyof any,T> = {
+      [P in K]: T
+    }
+
+    // keyof any 本质上是 string | number | symbol
+    // type ObjKey = key of any
+
+
+    // 示例：将一个联合类型的值映射到另一个类型上
+    type Animal = 'dog' | 'cat' | 'fish';
+    type AnimalInfo = Record<Animal, { name: string; age: number }>;
+
+    // 则
+    const animals: AnimalInfo = {
+      dog: { name: 'dogName', age: 2 },
+      cat: { name: 'catName', age: 3 },
+      fish: { name: 'fishName', age: 5 },
+    };
+
+    // 局限性： https://www.leevii.com/2023/05/record-in-ts.html
+    // 只能将一个类型的属性映射到另一个类型上
+    // 不能保留原有类型的修饰符 如 readonly 或 optional
+    // 不能处理动态的或未知的属性
+
+    // 2、Exclude(差集)
+
+    type Exclude<T,U> = T extends U ? never : T 
+
+    // 3、Extract（交集）
+
+    type Extract<T,U> = T entends U ? T : never
+
+    // 4、Pick(从已知类型中取出子集，作为一个新的类型返回)
+
+    type Pick<T,K entends keyof T> = {
+      [P in K]: T[P]
+    }
+
+    // 5、Omit（从已知类型中剔除某些属性，返回一个新的类型）
+
+    type Omit<T,K entends keyof any> = Pick<T,Exclude<keyof T,K>>
+  </script>
+</body>
+</html>

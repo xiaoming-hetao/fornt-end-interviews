@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let arr = [{cls:1,gra:2},{cls:2,gra:2},{cls:2,gra:5},{cls:6,gra:5}];
+
+    function findMax(arr) {
+      let map = new Map();
+      for (let item of arr) {
+        if (map.get(item.gra) === undefined) {
+          let obj = {
+            cls:item.cls
+          }
+          map.set(item.gra, obj)
+        } else {
+          let value = map.get(item.gra).cls;
+          if (item.cls > value) {
+            let obj = {
+              cls:item.cls
+            }
+            map.set(item.gra, obj)
+            }
+        }
+      }
+
+      let mapKey = map.keys();
+      let maxGrade = Math.max(...mapKey);
+      let maxClass = map.get(maxGrade).cls;
+      console.log(maxGrade, maxClass);
+    }
+
+    findMax(arr)
+  </script>
+</body>
+</html>

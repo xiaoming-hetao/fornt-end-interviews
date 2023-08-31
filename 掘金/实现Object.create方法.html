@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function create(proto) {
+      function Fn() {};
+      Fn.prototype = proto;
+      Fn.prototype.constructor = Fn;
+      return new Fn();
+    }
+
+    let obj = {
+      name: 'ming'
+    };
+    let name = Object.create(obj);
+    console.log(name)
+  </script>
+</body>
+</html>

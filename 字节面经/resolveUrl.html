@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 实现一个方法 function resolve(baseUrl: string, moduleId: string): string {}
+
+    // resolve('http://www.baidu.com', 'a/b/c'); -> http://www.baidu.com/a/b/c
+    // resolve('http://www.baidu.com', 'a/../c'); -> http://www.baidu.com/c
+    // resolve('http://www.baidu.com/1/2', 'a/.././c'); -> http://www.baidu.com/1/2/c
+
+    function resolve(baseUrl, moduleId) {
+      let arrId = moduleId.split('/').filter((item) => {
+        return !/^(\.)?$/.test(item);
+      });
+      console.log(arrId)
+      let res = []
+      for (let i=0; i<arrId.length; i++) {
+        if (arrId[i] !== '..') {
+          res.push(arrId[i]);
+        } else {
+          res.pop();
+        }
+      }
+      console.log(baseUrl+'/'+res.join('/'))
+      return baseUrl+'/'+res.join('/');
+    }
+
+
+    resolve('http://www.baidu.com', 'a/b/c');
+    resolve('http://www.baidu.com', 'a/../c');
+    resolve('http://www.baidu.com/1/2', 'a/.././c');
+  </script>
+</body>
+</html>

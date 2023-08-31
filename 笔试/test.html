@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .par {
+        border: 5px solid #fcc;
+        width: 300px;
+        /*而BFC在计算高度时，浮动元素也会参与，*/
+         overflow: hidden;
+    }
+ 
+    .child {
+        border: 5px solid #f66;
+        width:100px;
+        height: 100px;
+        float: left;
+    }
+</style>
+
+</head>
+<body>
+  <div class="par">
+        <div class="child"></div>
+        <div class="child"></div>
+    </div>
+  <script type="text/javascript">
+    console.log([1,2,3][1])
+    function plusNum(...params) {
+      if(arguments.length % 2 !==0) {
+        return 0
+    }
+    for (let i=0; i<arguments.length; i+=2) {
+        if(arguments[i]<1 || arguments[i+1] > Math.pow(10,9)) {
+            return 0
+        }
+        console.log(arguments[i]+arguments[i+1])
+    }
+  }
+  plusNum(0,2,3,4)
+  </script>
+</body>
+</html>

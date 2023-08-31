@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    type BaseType = string | number | boolean
+
+    // test 函数的参数只能是 BaseType 中的三种类型
+    function test<T extends BaseType>(arg: T) : T {
+      return arg
+    }
+  </script>
+</body>
+</html>

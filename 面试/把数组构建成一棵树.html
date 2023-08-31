@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 把以下数组构造成一颗树
+    var arr = [
+      {id:1, pid:0},
+      {id:2, pid:1},
+      {id:3, pid:2},
+      {id:10, pid:1},
+      {id:11, pid:0},
+      {id:12, pid:11},
+      {id:6, pid:11},
+      {id:8, pid:2},
+      
+    ];
+
+    // var tree = [
+    //   {id:1, child:[
+    //     {id:2, child:[
+    //       {id:3, child:[...]},
+    //       {id:8, child:[...]}
+             
+    //       ]},
+    //     {id:10, child:[...]}
+    //     ]},
+    //    {id:11, child:[...]},
+      
+    // ]
+    function buildTree0(data, parentId) {
+      const result = [];
+      for (const item of data) {
+        if (item.parentId === parentId) {
+          const children = buildTree(data, item.id);
+          if (children.length > 0) {
+            item.children = children;
+          }
+          result.push(item);
+        }
+      }
+      return result;
+    }
+
+    // 递归解法
+    // 找到将本次遍历的根节点作为父节点的所有子节点，直至找不到有子节点的
+    function buildTree(arr,root) {
+      return arr.filter((item) => item.pid === root)
+                .map((item) => ({id:item.id,child: buildTree(arr,item.id)}))
+    }
+
+    function buildTree2(arr,root) {
+      const result = [], // 存放结果
+            map = {} // 存放节点
+
+      // 遍历arr，将节点以id作为索引
+      arr.forEach(item => {
+        map[item.id] = item
+      })
+
+      // 再次遍历，将根节点放入最外层，子节点放到父节点
+      arr.forEach(item => {
+        const {id,pid} = item
+        // 根节点，存入result
+        if (pid === root) {
+          result.push(map[id])
+        } else {
+          // 存入父节点
+
+          map[pid].child 
+            ? map[pid].child.push(map[id])
+            : (map[pid].child = [map[id]])
+
+        }
+      })
+
+      return result
+    }
+
+    console.log(buildTree(arr,0))
+    console.log(buildTree2(arr,0))
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    在 `useEffect` 中使用 `interval` 定时器时，如果没有在 cleanup 函数中清除定时器，可能会导致内存占用越来越多的问题。这是因为每次组件重新渲染时，都会创建一个新的定时器，而旧的定时器并没有被清除，导致多个定时器同时存在，占用了更多的内存。
+
+同时，页面上的数字闪烁的问题可能是因为每次组件重新渲染时，都会重新调用 `useEffect`，导致新的定时器开始运行，而旧的定时器还在继续工作。这样就会出现两个定时器交替执行的情况，导致数字的变化不稳定，造成闪烁的效果。
+
+为了解决这个问题，你可以在 `useEffect` 中返回一个 cleanup 函数，在该函数中清除定时器。这样可以确保只有一个定时器在运行，从而避免内存占用增加和页面数字闪烁的问题。以下是一个示例代码：
+
+```jsx
+import React, {useEffect, useState} from "react";
+
+const MyComponent = () => {
+  const [count, setCount] = useState (0);
+
+  useEffect (() => {
+    const timer = setInterval (() => {
+      setCount ((prevCount) => prevCount + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval (timer);
+    };
+  }, []);
+
+  return <div>{count}</div>;
+};
+```
+
+在上面的代码中，`useEffect` 中的 cleanup 函数会在组件卸载时调用，清除定时器。而传递给 `useEffect` 的依赖数组为空，表示只在组件第一次渲染时创建定时器，避免了重复创建的问题。这样就能确保只有一个定时器在运行，并且页面上的数字变化稳定，不会闪烁。
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 防抖
+
+    function useDebounce(fn,delay) {
+      const ref = useRef({fn,timer: null})
+      useEffect(() => {
+        ref.current.fn = fn
+      },[fn])
+
+      return useCallBack((...args) => {
+        if (ref.current.timer) {
+          clearTimeout(ref.current.timer)
+        }
+        ref.current.timer = setTimeout(() => {
+          ref.current.fn.apply(this,args)
+        },delay)
+      },[delay])
+    }
+
+    // 节流
+
+    function useThrottle(fn,delay) {
+      const ref = useRef({fn,timer: null})
+      useEffect(() => {
+        ref.current.fn = fn
+      },[fn])
+
+      return useCallBack((...args) => {
+        if (!ref.current.timer) {
+          ref.current.timer = setTimeout(() => {
+            ref.current.fn.apply(this,args)
+            delete ref.current.timer
+          })
+        }
+      },[delay])
+    }
+  </script>
+</body>
+</html>

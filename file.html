@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>css3</title>
+  <style type="text/css">
+    /*css3边框属性*/
+    /*border-radius box-shadow border-image*/
+
+    /*每两个li的组合在第二个li之前加上该css*/
+    li+li:before {
+
+    }
+  </style>
+</head>
+<body>
+  <!-- 当在input上加上webkitdirectory属性时，用户可选择文件夹 -->
+  <!-- <input type="file" name="" id="box" webkitdirectory> -->
+  <input type="file" name="" id="box">
+  <input type="file" name="" id="box1">
+  <img src="" id="img">
+  <!-- file类型的input有一个files属性，保存着对文件的描述信息，但没有获得文件中的数据 -->
+  <!-- box.files -->
+  <!-- box.value 返回选择的文件的绝对路径 -->
+
+  <!-- 可以通过html5提供的FileReader读取到文件中的数据。 -->
+  <!-- <input type="file" name="" id="test">
+  <script>
+    let test = document.getElementById('test');
+    test.addEventListener('change', function() {
+      console.log(test.files);
+      console.log(test.value);
+    })
+    
+  </script> -->
+  <script>
+    // let reader = new FileReader();
+    // FileReader提供了如下方法
+    // readAsArrayBuffer(file) 按字节读取文件内容，结果用ArrayBuffer对象表示
+    // readAsBinaryString(file) 按字节读取文件，结果为文件的二进制字符串
+    // readAsDataURL(file) 读取文件内容，结果用data:url的字符串形式表示
+    // readAsText(file,encoding) 按字符读取文件内容，结果以字符串形式表示
+    // abort() 终止文件读取操作
+
+
+    // readAsDataURL(file)和readAsText(file,encoding)是比较常用的两个
+
+    // readAsDataURL(file)会返回文件的base64编码
+    // 由于媒体文件的src属性，可以通过采用网络地址或base64的方式显示，因此我们可以利用readAsDataURL实现对图片的预览。
+    let box = document.getElementById("box");
+    let img = document.getElementById("img");
+    box.addEventListener("change",() => {
+      console.log(box.files)
+      console.log(box.value)
+      let reader = new FileReader();
+      reader.readAsDataURL(box.files[0]);//发起异步请求
+      reader.onload = function(){//读取完成
+        img.src = this.result;
+        console.log(this.result)
+      }
+    })
+
+
+    // readAsText(file,encoding)可按指定编码方式读取文件，但读取文件的单位是字符，故对于文本文件，只要按规定的编码方式读取即可；
+    // 而对于媒体文件（图片、音频、视频），其内部组成并不是按字符排列，故采用readAsText读取，会产生乱码，因此不是最理想的读取文件的方式。
+
+    // FileReader对象的事件
+    // onabort 当读取操作被中止时调用
+    // onerror 当读取操作发生错误时调用
+    // onload 当读取操作成功完成时调用
+    // onloadend 当读取操作完成时调用，无论成功或失败
+    // onloadstart 当读取操作开始时调用
+    // onprogress 在读取数据过程中周期性调用
+
+    let box1 = document.getElementById("box1");
+    let count = 0;
+    box1.addEventListener("change",() => {
+      let reader = new FileReader();
+      reader.readAsText(box1.files[0],"utf-8");//发起异步请求
+      reader.onload = function(){//读取完成
+        console.log('成功读取')
+      }
+      reader.onloadstart = function() {
+        console.log('开始读取')
+      }
+      reader.onloadend = function() {
+        console.log('读取结束')
+      }
+      // 每过50ms左右，就会触发一次progress事件，对于较大的文件可以利用progress实现进度条；
+      reader.onprogress = function() {
+        count++
+        console.log('读取中'+count)
+      }
+      // 触发error事件时，相关信息保存在FileReader对象的error属性中，这个属性将保存一个对象，此对象只有一个属性code，即错误码。1表示未找到文件，2表示安全性错误，3表示读取中断，4表示文件不可读，5表示编码错误。
+    })
+  </script>
+</body>
+</html>

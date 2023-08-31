@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //https://www.cnblogs.com/youhong/p/6899466.html
+    // 链式操作
+    // 原理：每次方法执行后返回this对象，这样后面的方法就可以继续在this环境下执行
+
+    // 将执行函数放入数组队列，使用next执行
+
+    function Person() {
+      this.taskQueue = [];
+       setTimeout(() => {
+        this.next();
+      }, 0)
+      return this;
+    }
+
+    Person.prototype = {
+      work: function() {
+        let that = this;
+       
+        let fn = () => {
+          console.log('work');
+          that.next();
+        }
+        this.taskQueue.push(fn)
+        return this;
+      },
+
+      sleep: function(time) {
+       console.log('sleep');
+        let that = this;
+        let fn = () => {
+          setTimeout(() => {
+             
+            that.next();
+          }, time*1000)
+        }
+        that.taskQueue.push(fn);
+        return this;
+      },
+
+      lunch: function() {
+        let that = this;
+        let fn = () => {
+          console.log('lunch');
+          that.next()
+        }
+        that.taskQueue.push(fn);
+        return this;
+      },
+
+      next: function(){
+        let fn = this.taskQueue.shift();
+        if (typeof fn === 'function') {
+          fn();
+        }
+      }
+    }
+    let obj = new Person();
+    obj.work().sleep(10).lunch()
+  </script>
+</body>
+</html>

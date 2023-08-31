@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //apply和call的实现类似，不同的就是参数的处理
+    Function.prototype.myApply = function(context) {
+      context = context || window;
+
+      context.fn = this;
+      let result;
+      let args = [...arguments].slice(1)
+      if (args) {
+        result = context.fn(...args)
+      } else {
+        result = context.fn()
+      }
+
+      delete context.fn;
+      return result
+    }
+  </script>
+</body>
+</html>

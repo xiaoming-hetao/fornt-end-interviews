@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--  让移动设备的页面宽度等于设备的宽度-->
+  <meta name="viewport" content="width=device-width">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //“==”运算符比较“喜欢”Number类型,隐式类型转换==号两边全部调用Number方法
+    // Number({})=NaN
+    // 任何对象转为布尔值，都为得到 true（切记！在 JS 中，只有 0，-0，NaN，""，null，undefined 这六个值转布尔值时，结果为 false）。
+    console.log(Boolean(0));//false
+    console.log(Boolean(-0));//false
+    console.log(Boolean(NaN));//false
+    console.log(Boolean(""));//false
+    console.log(Boolean(null));//false
+    console.log(Boolean(undefined));//false
+    console.log(Boolean([]));//true
+    console.log(Boolean({}));//true
+    console.log(Boolean('false'));//true
+    console.log(Boolean(Date.now()));//true
+    alert(Date.now())
+    var foo = true; 
+    if (foo) {   
+      var bar = foo * 2;       
+      console.log( bar );//2
+    }
+    
+    // 函数声明和变量声明都会提升，但函数声明优先
+    // 后面的函数声明还是可以覆盖前面的函数声明
+
+    // 下面例子说明函数声明会提升，但是函数表达式不会提升
+    foo1(); // TypeError: foo1 is not a function
+  
+    var foo1 = function bar() {      };
+
+
+  </script>
+</body>
+</html>

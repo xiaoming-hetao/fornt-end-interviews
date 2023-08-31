@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		//如何把一个字符串的大小写取反（大写变小写小写变大写），例如 ’AbC' 变成 'aBc'
+
+		//思路：先用split分隔成字符串数组，再用join方法合并数组为字符串
+
+		//split()方法用于把一个字符串分割成字符串数组，stringObject.split(separator,howmany)
+		//如果把空字符串("")当做separator，那么每个字符之间都会被分隔
+
+		//join()方法和split()方法相反，用于把数组中的所有元素放入一个字符串，arrayObject.join(separator)，sparator为指定要使用的分隔符，如果省略改参数，则使用逗号作为分隔符
+
+		function handleString(s) {
+			let arr = s.split('');
+			let newArr = arr.map((item) => {
+				return item === item.toUpperCase() ? item.toLowerCase() : item.toUpperCase();
+			})
+			return newArr.join('');
+		}
+		console.log(handleString('AbC'));
+	</script>
+</body>
+</html>

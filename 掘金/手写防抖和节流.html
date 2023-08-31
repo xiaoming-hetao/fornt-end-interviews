@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //一般把防抖和节流封装成一个函数
+    // 这个函数有两个参数，一个是要执行的回调函数，一个是延迟时间
+
+    // 节流
+    // 1、应用场景 
+    // scroll滚动事件，每隔特定时间执行回调函数
+    // input输入框，每隔特定时间发送请求或是展开下拉列表（防抖也可以）
+    // 2、实现(节流重在加锁「flag = false」)
+
+   function throttle(fn, delay) {
+      //由于节流是指定时间后必运行一次，所以我们需要一个标记来判断是否到了可以运行的时候，第一次触发必然是可以运行的，所以初始化为true
+      let canRun = true;
+
+      return function(...args) {
+        let ctx = this;
+        if (!canRun) return;
+        //第一次触发事件后，立即设置为false
+        canRun = false;
+
+        //设置定时器
+        setTimeout(function() {
+          fn.apply(ctx, args);
+          //当到了指定时间函数运行一次后，是否可以运行标志又变为true，表示可以进行下一次循环
+          canRun = true;
+        },delay)
+      }
+    }
+
+    function throttle1(fn,delay) {
+      let canRun = true
+
+      return function(...args) {
+        if (!canRun) return
+
+        let context = this
+        canRun = false
+
+        setTimeout(function(){
+          fn.apply(context,args)
+          canRun = true
+        },delay)
+
+      }
+    }
+
+    function throttle2(fn,delay) {
+      let timer = null
+
+      return function (...args) {
+        if (!timer) {
+          timer = setTimeout(() => {
+            fn.apply(this,args)
+            timer = null
+          },delay)
+        }
+      }
+    }
+
+    // 防抖
+    // 1、应用场景
+    // 浏览器窗口大小resize避免次数过于频繁
+    // 登录，发短信等按钮避免发送多次请求
+    // 文本编辑器实时保存
+    // 2、实现（防抖重在清零clearTimeout(timer)）
+
+    function debounce(fn, delay) {
+      let timer = null;
+
+      return function(...args) {
+        let context = this;
+        if (timer) {
+          clearTimerout(timer);
+        }
+
+        timer = setTimeout(function() {
+          fn.apply(context,args);
+        },delay)
+      }
+    }
+  </script>
+</body>
+</html>

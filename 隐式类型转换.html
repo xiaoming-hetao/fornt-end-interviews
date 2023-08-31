@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		//==在比较两个不同类型的值时会发生隐式类型转换，会将其中之一或两者都转换为相同类型后再进行比较。
+		//转换规则
+		//1 字符串和数字做相等比较，会把字符串转为数字
+		// var a = 10;
+		// var b = "10";
+		// a==b //true
+		// a===b //false
+
+		//2 有布尔值时，把布尔值转为数字
+		// var a = true;
+		// var b = "1";
+		// a==b //true
+
+		//3 在==中，null和undefined相等
+		// var a = null;
+		// var b;
+		// a==b //true
+
+		//4. 对象（对象/函数/数组）和标量基本类型（字符串/数字/布尔值）之间的相等比较,会调用toString（）方法的进行类型转换
+	</script>
+
+	<script>
+		//shift()方法删除数组第一个元素并返回它
+		let d = [1,2,3];
+		alert(d.shift());
+		alert(d);
+
+		// 下面代码中，a在什么情况下会打印1
+		// var a = ?;
+		// 	if(a == 1 && a == 2 && a == 3){
+		// 	 	console.log(1);
+		// }
+		// let a = [1,2,3];
+		// a.toString = a.shift;//重写toStrinng方法为数组的shift方法
+		// if( a == 1 && a == 2 && a == 3 ) {
+		//   console.log(1);
+		// }
+
+		let a = {
+			i:1,
+			toString() {
+				return a.i++
+			}
+		}
+
+		if( a == 1 && a == 2 && a == 3 ) {
+		  console.log(1);
+		}
+	</script>
+</body>
+</html>

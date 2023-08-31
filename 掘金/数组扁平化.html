@@ -1,0 +1,34 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let arr = [1,2,[3,[4,[5,[6,[7,[8,[9]]]]]]]];
+    function flatArray(arr) {
+      // reduce函数接收一个回调函数作为累加器
+      // res必需。初始值, 或者计算结束后的返回值。
+      // cur 数组当前元素
+
+      let resArr = arr.reduce((res, cur) => {
+        if (Array.isArray(cur)) {
+          return [...res, ...flatArray(cur)];
+  
+      } else {
+          return [...res, cur]
+        }
+      },[]) // 这里的 [] 为：传递给函数的初始值
+
+      return resArr;
+    }
+       
+    let res = flatArray(arr);
+    console.log(res);
+
+   
+  </script>
+</body>
+</html>

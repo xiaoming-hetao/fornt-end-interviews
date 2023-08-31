@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //写一个函数来查找字符串数组中的最长公共前缀。
+
+    // 如果不存在公共前缀，返回空字符串 ""
+
+    // 输入: ["flower","flow","flight"]
+    // 输出: "fl"
+
+    // 先利用sort方法将数组按照编码排序，那么只需要比较第一个元素和最后一个元素的公共前缀即可
+    let longestCommonPrefix = function(strs) {
+      strs.sort();
+
+      if (strs.length === 0) return '';
+
+      let first = strs[0];
+      let last = strs[strs.length-1];
+      // first 等于end 或者first包含于end中
+      // match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配
+      if (first === last || last.match(eval('/^' + first + '/'))) return first;
+
+      for (let i=0; i<first.length; i++) {
+        if (first[i] !== last[i]) {
+          return first.substring(0,i);//返回匹配到的字符串
+        }
+      }
+    }
+  </script>
+</body>
+</html>

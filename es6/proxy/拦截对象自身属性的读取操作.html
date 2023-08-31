@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //ownKeys方法可以拦截以下操作：
+    // Object.getOwnPropertyNames()
+    // Object.getOwnPropertySymbols()
+    // Object.keys()
+    // for...in循环
+
+    let target = {
+      _bar: 'foo',
+      _prop: 'bar',
+      prop: 'baz'
+    };
+
+    let handler = {
+      ownKeys(target) {
+        return Object.keys(target).filter(key => key[0] != '_');
+        // Reflect.ownKeys(target) 返回对象的所有属性
+      }
+    };
+    let proxy = new Proxy(target, handler);
+    for (let key of Object.keys(proxy)) {
+      console.log(target[key])
+    }
+  </script>
+</body>
+</html>

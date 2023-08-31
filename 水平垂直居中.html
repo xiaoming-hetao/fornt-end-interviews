@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		/*.father {
+			background-color: #666;
+			width: 300px;
+			height: 200px;
+			position: relative;
+		}
+		.son{
+			background-color: #fff;
+			width: 200px;
+			height: 150px;
+			margin: auto;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}*/
+		.father {
+			background-color: #666;
+			width: 300px;
+			height: 200px;
+			display: table;
+			/*display: flex;/**/*/
+			/*align-items: center;
+			justify-content: center;*/
+		}
+		.son{
+			background-color: #fff;
+			width: 100px;
+			height: 50px;
+			 /*auto自动填充剩下的空间*/
+			vertical-align: center;
+		}
+		p {
+			display: -webkit-box;
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:3;
+			overflow:hidden;
+			text-overflow: ellipsis;
+		}
+	</style>
+</head>
+<body>
+	<div class="father">
+		<div class="son"><p>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</p></div>
+	</div>
+</body>
+</html>

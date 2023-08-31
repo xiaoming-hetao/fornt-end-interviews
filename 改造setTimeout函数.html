@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		//改造下面代码，使之输出0到9(源输出是10个10)
+
+		//因为for循环结束后，i的值变为10，而setTimeout函数是异步执行的
+		//1000毫秒后向任务队列里添加一个任务，只有主线上的任务全部执行完之后才会执行任务队列的任务
+		//每次for循环的时候都会执行setTimeout，但是里面的函数不被执行而是放到了任务队列里，因此放了10次
+		//for循环10次执行完之后不到1000毫秒，1000毫秒后全部执行任务队列中的函数，所以就打印了10个10
+		// for (var i = 0; i< 10; i++){
+		// 	setTimeout(() => {
+		// 		console.log(i);
+		//     }, 1000)
+		// }
+
+		//方法1：利用setTimeout函数的第三个参数，会作为回调函数的第一个参数传入
+		for (var i = 0; i< 10; i++){
+			setTimeout((i) => {
+				console.log(i);
+		    }, 1000, i)
+		}
+		for (var i = 0; i< 10; i++){
+			setTimeout(console.log, 1000, i)
+		}
+
+		//方法2: 利用let变量的特性，即在每一次for循环过程中，let每次声明的都是一个新变量，即每个变量只存活到每一次for循环结束
+		for (let i = 0; i < 10; i++) {
+		  setTimeout(() => {
+		    console.log(i);
+		  }, 1000)
+		}
+	</script>
+</body>
+</html>

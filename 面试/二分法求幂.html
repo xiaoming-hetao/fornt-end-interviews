@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    <!-- 注意处理负数 -->
+    function power(a,b) {
+      if (b === 0) return 1
+
+      if (b % 2 === 0) return b > 0 ? power(a*a,b/2):1/power(a*a,b/2)
+
+      return b > 0 ?  a*power(a*a,Math.floor(b/2)): 1/a*power(a*a,Math.ceil(b/2))
+    }
+
+    // 快速幂方法（本质是分治算法）
+    // 计算 x^64,则可以按照 x -> x^2 -> x^4 -> x^16 -> x^32 -> x^64
+    // 从x开始，每次计算直接把上一次的结果进行平方，计算六次就可得到目标值
+
+    // 从右往左计算，当计算 x^n,则可先递归地计算出 y=x^n/2,当 n 为偶数时，x^n = y^2
+    // 当n为奇数时，x^n = y^2 * x
+
+    function myPow(x,n) {
+      const quickMul = (x,n) => {
+        if (n === 0) return 1.0
+
+        const y = quickMul(x,Math.floor(n/2))
+
+        return n % 2 === 0 ? y*y : y*y*x
+      }
+
+      // 处理负数
+      return n >= 0 ? quickMul(x,n) : 1/quickMul(x,-n)
+
+    }
+   
+  </script>
+</body>
+</html>

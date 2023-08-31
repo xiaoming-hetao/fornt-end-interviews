@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    ////“==”运算符比较“喜欢”Number类型,隐式类型转换==号两边全部调用Number方法
+    //输出1,3
+  //   if ([] == false) {console.log(1)}
+  //   if ({} == false) {console.log(2)}
+  //   if ([]) {console.log(3)} // [] 是空的对象，不是空，所以会进入语句
+  //   if ([1] == [1]) {console.log(4)}
+  //   alert([] == []) //false
+  // // Number({})=NaN,Number(false)=0
+  //   alert({} == false)//false
+
+    new Promise((resolve) => {
+      console.log(1);
+      resolve(2)
+    }).then((res) => {
+      console.log(res);
+      return 4;
+    }).then((res) => {
+      console.log(res);
+    });
+    console.log(5)
+  </script>
+</body>
+</html>

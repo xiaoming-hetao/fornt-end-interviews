@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+   <button 
+      name="impression"
+      data-id="123" 
+      data-click-data="{pointId: 123,data: '按钮点击了一次'}"
+      data-impression-data="{pointId: 123,data: '按钮曝光了一次'}"
+    >
+      按钮
+   </button>
+
+   <a
+      href="https://www.baidu.com"
+      name="impression"
+      data-id="456" 
+      data-click-data="{pointId: 456,data: '链接了一次'}"
+      data-impression-data="{pointId: 456,data: '链接曝光了一次'}"
+   >
+     链接
+   </a>
+
+    <ul
+      data-id="789" 
+      name="impression"
+      data-click-data="{pointId: 789,data: '点击了一次'}"
+      data-impression-data="{pointId: 789,data: '列表曝光了一次'}"
+    >
+      <li>
+        苹果
+        <ul>
+          <li>青苹果</li>
+          <li>红苹果</li>
+        </ul>
+      </li>
+      <li>
+        芒果
+        <ul>
+          <li>本地芒果</li>
+          <li>海南芒果</li>
+        </ul>
+      </li>
+      <li>香蕉</li>
+      ...
+    </ul>
+    
+
+  <script type="text/javascript">
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+       
+        if (entry.intersectionRatio > 0 ) { // 被观察者进入视口
+          console.log(entry.target.dataset.impressionData)
+         
+        }
+      });
+    }
+    // 初始化观察者实例
+    const observer = new IntersectionObserver(observerCallback)
+    
+    // 获取需要进行曝光埋点的元素
+    const observeElement = [...document.getElementsByName('impression')]
+
+    // 对每一个元素进行观察
+    observeElement.forEach((targetElement) => observer.observe(targetElement))
+    
+
+
+    let layer = 1
+    function findParent(target) {
+
+      if (layer > 3) {
+        layer = 1
+        return
+      }
+      
+      // 找到实际绑定点位的祖先元素就返回
+      if (target?.parentNode && target?.parentNode?.dataset && target?.parentNode?.dataset?.id) {
+        layer = 1
+        return target.parentNode
+      }
+
+      layer++
+
+      // 递归向上寻找
+      if (target?.parentNode) {
+        return findParent(target.parentNode)
+      }
+      
+    }
+
+    window.addEventListener('click',(e) => {
+      let targetNode // 实际绑定点位的元素
+     
+      // 如果当前元素就是实际绑定点位的元素
+      if (e.target?.dataset?.id) {
+        targetNode = e.target
+      } else { // 否则向上寻找
+        targetNode = findParent(e.target)
+      }
+     
+      
+      if (targetNode) {
+        console.log(targetNode.dataset.id)
+        console.log(targetNode.dataset.clickData)
+      }
+    })
+  </script>
+</body>
+</html>

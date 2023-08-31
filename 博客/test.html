@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<video id="video" controls width="400" height="200">
+     <source src="http://1257092661.vod2.myqcloud.com/0d1bb4cevodtransgzp1257092661/bf15d8205285890807073233140/v.f30.mp4"  type="video/mp4">
+</video>
+
+
+<script>
+    window.onload = function () {
+        var url = "http://1257092661.vod2.myqcloud.com/0d1bb4cevodtransgzp1257092661/bf15d8205285890807073233140/v.f30.mp4";
+        // var url = "http://imgshop.woojia.com/newimages/s-20200421/100/45552b258e8c8c723930046033e368b5.mp4";
+    // var imgUrl = "http://imgshop.woojia.com/newimages/s-20200821/36/9faceee175b8e1b5d35cb6e4f8ce8797.jpeg";
+    var resolve = getVideoBase64(url);
+   
+    resolve.then(dataURL => {
+        console.log("dataURL:",dataURL);
+    });
+function getVideoBase64(url) {
+    return new Promise(function (resolve, reject) {
+        var dataURL = '';
+        const video = document.getElementById("video");
+        video.setAttribute('crossOrigin', 'anonymous'); //处理跨域
+        video.setAttribute('src', url);
+        // video.setAttribute('width', 400);
+        // video.setAttribute('height', 200);
+        video.setAttribute("preload", "auto");  // 就是加上预加载之后绘制就成功了
+       
+        video.addEventListener('loadeddata', function () {
+                var canvas = document.createElement("canvas"),
+                    width = video.width, //canvas的尺寸和图片一样
+                    height = video.height;
+                console.log(width,height)
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext("2d").drawImage(video, 0, 0, width, height); //绘制canvas
+                dataURL = canvas.toDataURL('image/jpeg'); //转换为base64
+                video.setAttribute('poster',dataURL)
+                resolve(dataURL);
+                document.body.append(canvas);
+        });
+    })
+}
+}
+</script>
+
+</body>
+</html>

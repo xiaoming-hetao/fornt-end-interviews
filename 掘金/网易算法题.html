@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    span {
+      display: inline-block;
+      width: 100px;
+      background: red;
+      /*float: left;*/
+      font-size: 12px;
+    }
+  </style>
+  <!-- 解决相邻两个span中间的间隙 -->
+  <!-- https://blog.csdn.net/qq_34035425/article/details/85050384?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param -->
+</head>
+<body>
+  <div style="font-size: 0">
+    <span>123</span>
+    <span>456</span>
+  </div>
+  <script type="text/javascript">
+    const tree = {
+        name: 'root',
+        children: [
+            {
+                name: 'c1',
+                children: [
+                    {
+                            name: 'c11',
+                        children: []        
+                        },
+                        {
+                            name: 'c12',
+                        children: []        
+                    }
+                ]
+            },
+            {
+                name: 'c2',
+                children: [
+                    {
+                            name: 'c21',
+                        children: []        
+                        },
+                        {
+                            name: 'c22',
+                        children: []        
+                    }
+                ]
+            }
+        ]
+    }
+
+  // 深度优先的方式遍历 打印 name
+  // ['root', 'c1','c11', 'c12', 'c2', 'c21', 'c22']
+
+  function deepTree(tree) {
+    let nodeList = [];
+    let stack = [];
+
+    if (tree) {
+      stack.push(tree);
+      while (stack.length) {
+        let item = stack.pop();
+        nodeList.push(item.name);
+
+        // 遍历子节点，后进先出(先被访问的节点需要后进栈)
+        let children = item.children;
+
+        for (var i = children.length - 1; i >= 0; i--) {
+            stack.push(children[i]);
+        }
+      }
+    }
+
+    return nodeList;
+  }
+
+  let res = deepTree(tree);
+  console.log(res);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    console.log(typeof null)
+    console.log(typeof undefined)
+    console.log(Object.prototype.toString.call(null))
+    function checkVariable(variable) {
+      if (Object.prototype.toString.call(variable) === '[object Null]') {
+        console.log(null);
+        return null;
+      }
+
+      if (typeof variable === 'object' ) {
+        if (Array.isArray(variable)) {
+          console.log('Array');
+          return Array
+        } else {
+          console.log('object')
+          return Object;
+        }
+      }
+
+      if (typeof variable === 'string') {
+        console.log('string')
+        return String;
+      }
+      if (typeof variable === 'number') {
+        if (isNaN(variable)) {
+          console.log('NaN');
+          return NaN
+        } else {
+          console.log('number')
+          return Number
+        }
+      }
+    }
+    let variable = [1,2]
+    checkVariable(variable)
+  </script>
+</body>
+</html>

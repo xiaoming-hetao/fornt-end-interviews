@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 在excel中，用A表示第一列，B表示第二列….Z表示第26列，AA表示27列，AB表示28列。
+    // 设计一个算法，根据输入的字母，输出对应的数字
+
+    // 本质是一个26进制转10进制的算法
+
+    // 先编写一个进制转换函数
+    function index(str, letter) {
+      let col = 0;
+      for (let i=0; i<str.length; i++) {
+        col++
+        if (str[i] === letter) {
+          return col;
+        }
+      }
+    }
+    
+    function letterToNumer(str) {
+      let len = str.length;
+
+      if (len <= 0) {
+        return false;
+      }
+
+      let num = 0;
+      let letterStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+      for (let i=0; i<len; i++) {
+        let col = index(str, str[i]);
+        num += col*Math.pow(26,len-1-i);
+      }
+
+      console.log(num)
+      return num;
+    }
+    letterToNumer('A')
+    letterToNumer('AA')
+    letterToNumer('AB')
+  </script>
+</body>
+</html>

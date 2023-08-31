@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    let arr = [3,23,66,32,2,77,45,87,64,34,33];
+
+    function quickSort(arr) {
+      let len = arr.length;
+      if (len<=1) {
+        return arr;
+      }
+
+      let left = [],right = [];
+      // 选择基数
+      let index = Math.floor(len/2);
+      let center = arr.splice(index,1)[0];
+
+      // 循环比较其它元素与基数的大小
+      for (let i=0; i<len-1; i++) {
+        if (arr[i] > center) {
+          right.push(arr[i])
+        } else {
+          left.push(arr[i])
+        }
+      }
+
+      // 递归
+      let leftArr = quickSort(left);
+      let rightArr = quickSort(right);
+
+      // 合并数组
+      return leftArr.concat([center],rightArr);
+    }
+
+    let res = quickSort(arr);
+    console.log(res);
+  </script>
+</body>
+</html>

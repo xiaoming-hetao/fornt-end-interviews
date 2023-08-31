@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //.数字划分：输入1234987897输出1,234,987,897
+    let num = 1234987897;
+
+    function dividedNum(num) {
+      let str = ''+num;
+      let arr = str.split('');
+      let len = arr.length;
+      let count = 1;
+      for (let i=len-1; i--; i>=0) {
+        count++;
+        if (count === 3) {
+          arr.splice(i,0,',');
+          count = 0;
+        }
+      }
+      console.log(arr.join(''))
+    }
+     function dividedNum1(num) {
+      let str = ''+num;
+      let point = str.length
+      let ret = ''
+
+      while(point > 3) {
+        let tempStr = ',' + str.substring(point-3,point)
+
+        ret = tempStr + ret
+
+        point -= 3
+      }
+
+
+      console.log(str.substring(0,point) + ret)
+    }
+    dividedNum(num)
+    dividedNum1(num)
+
+    // 正则：输入xxxxxxx{xxx}xxx{xx}将括号里面的替换成具体的值
+
+    let str = 'xxxxxxx{xxx}xxx{xx}';
+    let reg = /{|}/g;
+    let handlestr = str.replace(reg,'123')
+    console.log(handlestr)
+
+    
+  </script>
+</body>
+</html>

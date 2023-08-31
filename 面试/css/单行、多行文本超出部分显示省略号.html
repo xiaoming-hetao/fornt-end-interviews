@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    /*单行文本*/
+    /*.text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }*/
+    /*多行文本*/
+    .text {
+      overflow:hidden; 
+
+      text-overflow:ellipsis;
+
+      display:-webkit-box; 
+
+      -webkit-box-orient:vertical;
+
+      -webkit-line-clamp:2; 
+    }
+  </style>
+</head>
+<body>
+  <div style="width: 200px;border: 1px solid #ddd" class="text">
+    <span>1111111111111111方法方法付付3333333333333311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</span>
+  </div>
+</body>
+</html>

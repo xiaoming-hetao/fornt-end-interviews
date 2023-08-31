@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function mySetInterval(fn,time) {
+      const interval = () => {
+        setTimeout(interval,time)
+        fn()
+      }
+
+      setTimeout(interval,time)
+    }
+    mySetInterval(() => {
+      console.log(1)
+    },1000)
+  </script>
+</body>
+</html>

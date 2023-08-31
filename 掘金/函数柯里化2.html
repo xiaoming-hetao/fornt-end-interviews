@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    // 要实现一个 add 函数，可以输入任意参数，并且可以连续调用,最后计算它们的和
+    // console.log(+add(2,3)(1)(2))
+
+    // 我们可以使用闭包来实现。下面是一个示例代码：
+
+
+function add (num) {
+  let sum = num;
+
+  function innerAdd (nextNum) {
+    sum += nextNum;
+    return innerAdd;
+  }
+
+  innerAdd.toString = function () {
+    return sum;
+  };
+
+  return innerAdd;
+}
+
+console.log (+add(1)(2)(7)(9,10)); // 输出 3
+
+
+// 在这个示例中，add 函数接受一个参数 num，并初始化一个变量 sum 为该参数的值。然后定义一个内部函数 innerAdd，它接受一个参数 nextNum，并将它与 sum 相加，并将结果赋值给 sum。innerAdd 函数还返回自身，这样我们可以链式调用它。最后，我们通过给 innerAdd 函数添加一个 toString 方法，使得我们可以通过 console.log 打印出 sum 的值。
+
+// 注意，我们在 console.log 中使用了一元加号操作符来将返回的 innerAdd 函数转换为数字。这是因为 innerAdd 函数被转换为字符串时会调用 toString 方法，而我们在 toString 方法中返回的是 sum 的值。所以通过一元加号操作符可以将字符串转换为数字。
+  </script>
+</body>
+</html>

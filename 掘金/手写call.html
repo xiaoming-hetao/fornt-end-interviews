@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //call（）方法使用一个指定的this值和单独给出得到一个或多个参数来调用一个函数
+    // 语法function.call(thisArg, arg1, arg2, ...)
+    Function.prototype.myCall = function(thisArg,...args) {
+      if (typeof this !== 'function') {
+        throw new TypeError('error')
+      }
+
+      const fn = Symbol('fn'); //声明一个独有的Symbol属性, 防止fn覆盖已有属性
+      thisArg = thisArg || window;//若没有传入this，默认绑定window对象
+      thisArg[fn] = this; //this指向调用call的对象，即我们要改变this指向的函数
+
+      const result = thisArg[fn](...args) //执行当前函数
+      delete thisArg[fn] //删除声明的fn属性
+      return result
+    }
+
+    function myCall(thisArg,...args) {
+      // 获取需要执行的函数
+      let func = this
+
+      // this 指向
+      thisArg = thisArg || window //若没有传入this，或者传入undefined或null，则默认绑定window对象
+      let fn = Symbol('fn')
+
+      thisArg[fn] = func
+
+      // 执行当前函数
+      const result = thisArg[fn](...args)
+
+      delete thisArg[fn]
+
+      return result
+    }
+  </script>
+</body>
+</html>

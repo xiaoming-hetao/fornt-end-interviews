@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    const nums = [1, 1, 2, 2, 3, 3, 4, 5, 5];
+
+    function removeDuplicates(nums) {
+      let i = 0,j = 1 // j 用来遍历数组
+
+      while(j < nums.length) {
+        // 比较 i 和 j 置的元素，如果相同，则 j 向前移动一位；如果不同，则将 j 位置的元素复制到 i+1 位置，然后 i 和 j 都向前移动一位
+        if (nums[i] !== nums[j]) {
+          i++
+          nums[i] = nums[j]
+        }
+
+        j++
+      }
+
+      return i+1
+    }
+
+    const len = removeDuplicates(nums);
+    console.log(len, nums.slice(0, len));
+  </script>
+</body>
+</html>

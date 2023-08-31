@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    //函数的作用域在函数定义的时候就决定了
+    (function() {
+      var a = b = 5;
+      })();   
+    console.log(b);//5
+    console.log(a);//Uncaught ReferenceError: a is not defined
+
+    // 解析：var a=b=5;相当于var a=b;b=5;b=5前面没有var，相当于声明为全局变量
+    // a声明的是函数的局部变量，在函数结束是就销毁了
+  </script>
+</body>
+</html>

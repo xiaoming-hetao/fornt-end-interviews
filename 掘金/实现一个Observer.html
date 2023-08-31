@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script type="text/javascript">
+    function defineObserver(data, key, val) {
+      observe(val); //递归遍历所有子属性
+
+      Object.defineProperty(data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+          return val;
+        },
+        set: function(newVal) {
+          val = newVal;
+        }
+      })
+    }
+
+    function observe(data) {
+      if (!data || typeof data !== 'object') {
+        return;
+      }
+
+      Object.keys(data).forEach((key) => {
+        defineObserver(data, key, data[key]);
+      })
+    }
+  </script>
+</body>
+</html>

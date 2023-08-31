@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+    <a href="#">跳转A——#</a><br/>
+    <a href="##">跳转B——##</a><br/>
+    <!-- 页面不跳转 -->
+    <a href="javascript:;">跳转C——javascript:;</a><br/>
+    <a href="">跳转D——直接为空</a>
+  <script type="text/javascript">
+    console.log(1+ "2"+"2");//122
+    // +"2"中的加号是一元加操作符，+"2"会变成数值2，因此1+ +"2"相当于1+2=3.
+    console.log(1+ +"2"+"2");//32
+    // "A"-"B"的运算中，需要先把"A"和"B"用Number函数转换为数值，其结果为NaN，在减法操作中，如果有一个是NaN，则结果是NaN，因此"A"-"B"结果为NaN。
+    console.log("A"- "B"+"2");//NaN2
+    console.log("A"- "B"+2);//NaN
+  </script>
+</body>
+</html>
